@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { MessageCircle, Phone } from 'lucide-react';
+import { MessageCircle, Phone, Search } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import SEO from '../components/SEO';
 
 const Support = () => {
     const { t } = useLanguage();
@@ -24,6 +25,15 @@ const Support = () => {
             url: 'tel:+50664355247',
             color: '#6366f1',
             action: 'call'
+        },
+        {
+            title: t.support.track.title,
+            desc: t.support.track.desc,
+            btn: t.support.track.btn,
+            icon: <Search size={48} />,
+            url: '/track',
+            color: '#8b5cf6',
+            action: 'track'
         }
     ];
 
@@ -41,6 +51,11 @@ const Support = () => {
                 width: '100%'
             }}
         >
+            <SEO
+                title="Soporte y Ayuda"
+                description="¿Necesitas ayuda? Contáctanos por WhatsApp, teléfono o rastrea tu ticket. Estamos aquí para ayudarte con tu proyecto web."
+                keywords="soporte web, ayuda diseño web, contacto, whatsapp, rastrear ticket"
+            />
             <div className="container">
                 <motion.div
                     initial={{ y: -20 }}

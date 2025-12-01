@@ -2,13 +2,23 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { Instagram, Linkedin, MessageCircle } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import SEO from '../components/SEO';
 
 const Social = () => {
     const { t } = useLanguage();
 
     const socials = [
         { name: 'Instagram', icon: <Instagram size={48} />, url: 'https://instagram.com/galaktikdev', color: '#E4405F' },
-        { name: 'WhatsApp', icon: <MessageCircle size={48} />, url: 'https://wa.me/64355247', color: '#25D366' }
+        {
+            name: 'TikTok',
+            icon: (
+                <svg viewBox="0 0 24 24" width="48" height="48" stroke="currentColor" strokeWidth="2" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
+                </svg>
+            ),
+            url: 'https://www.tiktok.com/@galaktikweb',
+            color: '#ffffff'
+        }
     ];
 
     return (
@@ -25,6 +35,11 @@ const Social = () => {
                 width: '100%'
             }}
         >
+            <SEO
+                title="Redes Sociales"
+                description="Síguenos en nuestras redes sociales. Conecta con Galaktik en Instagram y WhatsApp."
+                keywords="redes sociales, instagram galaktik, whatsapp, contacto social"
+            />
             <div className="container" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
                 <motion.h1
                     initial={{ y: -20 }}

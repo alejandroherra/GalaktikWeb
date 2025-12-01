@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Globe } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import '../styles/index.css';
+import logoImg from '../assets/logo.png';
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -13,6 +14,7 @@ const Navbar = () => {
     const links = [
         { name: t.nav.home, path: '/' },
         { name: t.nav.quote, path: '/ticket' },
+        { name: t.nav.track, path: '/track' },
         { name: t.nav.socials, path: '/social' },
         { name: t.nav.faq, path: '/faq' },
         { name: t.nav.work, path: '/work-with-us' },
@@ -37,9 +39,8 @@ const Navbar = () => {
                 alignItems: 'center',
                 justifyContent: 'space-between'
             }}>
-                <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '1.5rem', fontWeight: 'bold' }}>
-                    <img src="/src/assets/logo.png" alt="Galaktik Logo" style={{ width: '40px', height: '40px' }} />
-                    <span>Galaktik <span className="gradient-text">Websites</span></span>
+                <Link to="/" style={{ display: 'flex', alignItems: 'center' }}>
+                    <img src={logoImg} alt="Galaktik Logo" style={{ width: '68px', height: '65px' }} />
                 </Link>
 
                 {/* Desktop Menu */}

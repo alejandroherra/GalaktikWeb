@@ -1,8 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Check, Globe, Zap, Shield, Smartphone, TrendingUp, Users, Clock, Award } from 'lucide-react';
+import { Check, Globe, Zap, Shield, Smartphone, TrendingUp, Users, Clock, Award, Wrench, ArrowUpCircle, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
+import manitosImg from '../assets/manitos.jpg';
+import travelsImg from '../assets/travels.jpg';
+import wyndhamImg from '../assets/wyndham.jpg';
+import logoImg from '../assets/logo.png';
+import SEO from '../components/SEO';
 
 const Home = () => {
     const { t } = useLanguage();
@@ -27,6 +32,12 @@ const Home = () => {
             variants={containerVariants}
             style={{ paddingTop: 'var(--nav-height)', width: '100%' }}
         >
+            <SEO
+                title="Diseño Web Profesional"
+                description="Agencia de diseño y desarrollo web en Costa Rica. Creamos sitios web modernos, rápidos y optimizados para tu negocio desde $149."
+                keywords="diseño web costa rica, desarrollo web, paginas web, ecommerce, seo"
+            />
+
             {/* Hero Section */}
             <section style={{
                 minHeight: '90vh',
@@ -35,7 +46,8 @@ const Home = () => {
                 justifyContent: 'center',
                 textAlign: 'center',
                 background: 'radial-gradient(circle at 50% 50%, rgba(99, 102, 241, 0.1) 0%, rgba(10, 10, 10, 0) 50%)',
-                width: '100%'
+                width: '100%',
+                padding: '5rem 0'
             }}>
                 <div className="container">
                     <motion.div
@@ -43,9 +55,9 @@ const Home = () => {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 0.8, ease: "easeOut" }}
                         style={{
-                            marginBottom: '3rem',
-                            maxWidth: '900px',
-                            margin: '0 auto 3rem auto',
+                            marginBottom: '4rem',
+                            maxWidth: '1100px',
+                            margin: '2rem auto 4rem auto',
                             padding: '1.5rem 2.5rem',
                             background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%)',
                             backdropFilter: 'blur(20px)',
@@ -74,6 +86,20 @@ const Home = () => {
                                 zIndex: 0
                             }}
                         />
+                        <motion.h2
+                            initial={{ opacity: 0, y: -20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5, duration: 0.8 }}
+                            style={{
+                                fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
+                                marginBottom: '1rem',
+                                fontWeight: 'bold',
+                                position: 'relative',
+                                zIndex: 1
+                            }}
+                        >
+                            <span className="gradient-text">{t.hero.whoWeAre}</span>
+                        </motion.h2>
                         <p style={{
                             fontSize: 'clamp(1rem, 2vw, 1.25rem)',
                             color: '#e0e7ff',
@@ -88,6 +114,54 @@ const Home = () => {
                         </p>
                     </motion.div>
 
+                    <motion.h2 variants={itemVariants} style={{ textAlign: 'center', fontSize: '2rem', marginBottom: '2rem' }}>
+                        {t.features.title} <span className="gradient-text">{t.features.titleHighlight}</span>
+                    </motion.h2>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        style={{ textAlign: 'center', marginBottom: '2rem' }}
+                    >
+                        <h3 className="gradient-text" style={{
+                            fontSize: '1.5rem',
+                            fontWeight: 'bold',
+                            display: 'inline-block',
+                            borderBottom: '2px solid var(--accent-primary)',
+                            paddingBottom: '0.5rem'
+                        }}>
+                            {t.features.sectionTitle}
+                        </h3>
+                    </motion.div>
+
+                    <div className="features-grid">
+                        {[
+                            { icon: <Globe />, title: t.features.global, desc: t.features.globalDesc },
+                            { icon: <Smartphone />, title: t.features.responsive, desc: t.features.responsiveDesc },
+                            { icon: <Zap />, title: t.features.fast, desc: t.features.fastDesc },
+                            { icon: <Shield />, title: t.features.secure, desc: t.features.secureDesc },
+                            { icon: <Wrench />, title: t.features.maintenance, desc: t.features.maintenanceDesc },
+                            { icon: <ArrowUpCircle />, title: t.features.upgrade, desc: t.features.upgradeDesc }
+                        ].map((feature, i) => (
+                            <motion.div
+                                key={i}
+                                variants={itemVariants}
+                                whileHover={{ y: -5 }}
+                                style={{
+                                    padding: '1.5rem',
+                                    background: 'var(--card-bg)',
+                                    border: '1px solid var(--card-border)',
+                                    borderRadius: '16px'
+                                }}
+                            >
+                                <div style={{ color: 'var(--accent-primary)', marginBottom: '0.5rem' }}>{feature.icon}</div>
+                                <h3 style={{ marginBottom: '0.25rem', fontSize: '1.1rem' }}>{feature.title}</h3>
+                                <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{feature.desc}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+
                     <motion.h1 variants={itemVariants} style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', marginBottom: '1.5rem', lineHeight: 1.1 }}>
                         {t.hero.title} <span className="gradient-text">{t.hero.subtitle}</span>
                     </motion.h1>
@@ -98,36 +172,6 @@ const Home = () => {
                         <Link to="/ticket" className="btn btn-primary">{t.hero.start}</Link>
                         <a href="#pricing" className="btn btn-outline">{t.hero.plans}</a>
                     </motion.div>
-                </div>
-            </section>
-
-            {/* Features Grid */}
-            <section style={{ padding: '5rem 0', width: '100%' }}>
-                <div className="container">
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem' }}>
-                        {[
-                            { icon: <Globe />, title: t.features.global, desc: t.features.globalDesc },
-                            { icon: <Smartphone />, title: t.features.responsive, desc: t.features.responsiveDesc },
-                            { icon: <Zap />, title: t.features.fast, desc: t.features.fastDesc },
-                            { icon: <Shield />, title: t.features.secure, desc: t.features.secureDesc }
-                        ].map((feature, i) => (
-                            <motion.div
-                                key={i}
-                                variants={itemVariants}
-                                whileHover={{ y: -5 }}
-                                style={{
-                                    padding: '2rem',
-                                    background: 'var(--card-bg)',
-                                    border: '1px solid var(--card-border)',
-                                    borderRadius: '16px'
-                                }}
-                            >
-                                <div style={{ color: 'var(--accent-primary)', marginBottom: '1rem' }}>{feature.icon}</div>
-                                <h3 style={{ marginBottom: '0.5rem' }}>{feature.title}</h3>
-                                <p style={{ color: 'var(--text-secondary)' }}>{feature.desc}</p>
-                            </motion.div>
-                        ))}
-                    </div>
                 </div>
             </section>
 
@@ -158,84 +202,107 @@ const Home = () => {
                     <div style={{
                         display: 'grid',
                         gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-                        gap: '3rem',
-                        alignItems: 'start'
+                        gap: '2rem',
+                        maxWidth: '1200px',
+                        margin: '0 auto'
                     }}>
-                        {/* $299 Options - Left Column */}
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                            <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: 'var(--text-secondary)' }}>{t.examples.options299}</h3>
-                            {[
-                                { id: 1, title: "Hospedaje Manito", price: "$299", optionNum: 1, url: "https://hospedajemanito.com/" },
-                                { id: 4, title: "Costa Rica Travel", price: "$299", optionNum: 2, url: "https://costaricatravelcr.com/tours-de-un-dia/" },
-                            ].map((ex) => (
-                                <motion.a
-                                    key={ex.id}
-                                    href={ex.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    variants={itemVariants}
-                                    whileHover={{ y: -5, scale: 1.02 }}
-                                    style={{
-                                        display: 'block',
-                                        borderRadius: '16px',
-                                        overflow: 'hidden',
-                                        position: 'relative',
-                                        border: '1px solid var(--card-border)',
-                                        textDecoration: 'none',
-                                        color: 'white',
-                                        background: 'var(--card-bg)'
-                                    }}
-                                >
-                                    <div style={{
-                                        padding: '1.5rem',
-                                        background: 'var(--card-bg)'
-                                    }}>
-                                        <h3 style={{ fontSize: '1.2rem', marginBottom: '0.25rem' }}>{ex.title}</h3>
-                                        <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-                                            {t.examples.click299}
-                                        </span>
-                                    </div>
-                                </motion.a>
-                            ))}
-                        </div>
+                        {[
+                            {
+                                img: manitosImg,
+                                title: t.examples.options149,
+                                link: 'https://hospedajemanito.com/',
+                                label: t.examples.click149
+                            },
+                            {
+                                img: travelsImg,
+                                title: t.examples.options299,
+                                link: 'https://costaricatravelcr.com/tours-de-un-dia/',
+                                label: t.examples.click299
+                            },
+                            {
+                                img: wyndhamImg,
+                                title: t.examples.options1099,
+                                link: 'https://www.wyndhamhotels.com/es-xl/wyndham-garden/sanjose-costa-rica/wyndham-garden-sanjose-escazu/overview',
+                                label: t.examples.click1099
+                            }
+                        ].map((example, index) => (
+                            <motion.a
+                                key={index}
+                                href={example.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                whileHover={{ scale: 1.03, brightness: 1.1 }}
+                                transition={{ duration: 0.3 }}
+                                style={{
+                                    position: 'relative',
+                                    height: '400px',
+                                    borderRadius: '24px',
+                                    overflow: 'hidden',
+                                    display: 'flex',
+                                    alignItems: 'flex-end',
+                                    textDecoration: 'none',
+                                    border: '1px solid rgba(255,255,255,0.1)',
+                                    boxShadow: '0 10px 30px rgba(0,0,0,0.3)'
+                                }}
+                            >
+                                {/* Background Image */}
+                                <div style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    backgroundImage: `url(${example.img})`,
+                                    backgroundSize: example.img === travelsImg ? '120%' : 'cover',
+                                    backgroundPosition: 'center',
+                                    zIndex: 0
+                                }} />
 
-                        {/* $1099 Options - Right Column */}
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-                            <h3 style={{ textAlign: 'center', marginBottom: '1rem', color: 'var(--text-secondary)' }}>{t.examples.options1099}</h3>
-                            {[
-                                { id: 3, title: "Roma del Mar", price: "$1099", optionNum: 1, url: "https://romadelmar.com/" },
-                                { id: 2, title: "Wyndham Hotel", price: "$1099", optionNum: 2, url: "https://www.wyndhamhotels.com/es-xl/wyndham/san-jose-costa-rica/wyndham-san-jose-herradura-hotel-convention-center/overview" },
-                            ].map((ex) => (
-                                <motion.a
-                                    key={ex.id}
-                                    href={ex.url}
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    variants={itemVariants}
-                                    whileHover={{ y: -5, scale: 1.02 }}
-                                    style={{
-                                        display: 'block',
-                                        borderRadius: '16px',
-                                        overflow: 'hidden',
-                                        position: 'relative',
-                                        border: '1px solid var(--accent-primary)',
-                                        textDecoration: 'none',
-                                        color: 'white',
-                                        background: 'linear-gradient(145deg, rgba(99, 102, 241, 0.1) 0%, rgba(10, 10, 10, 0) 100%)'
-                                    }}
-                                >
-                                    <div style={{
-                                        padding: '1.5rem',
-                                        background: 'transparent'
+                                {/* Overlay */}
+                                <div style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    right: 0,
+                                    bottom: 0,
+                                    background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.2) 100%)',
+                                    zIndex: 1,
+                                    transition: 'background 0.3s'
+                                }} />
+
+                                {/* Content */}
+                                <div style={{
+                                    position: 'relative',
+                                    zIndex: 2,
+                                    padding: '2rem',
+                                    width: '100%',
+                                    textAlign: 'center'
+                                }}>
+                                    <h3 style={{
+                                        fontSize: '1.8rem',
+                                        marginBottom: '0.5rem',
+                                        color: '#fff',
+                                        textShadow: '0 2px 4px rgba(0,0,0,0.5)'
                                     }}>
-                                        <h3 style={{ fontSize: '1.2rem', marginBottom: '0.25rem' }}>{ex.title}</h3>
-                                        <span style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>
-                                            {t.examples.click1099}
-                                        </span>
-                                    </div>
-                                </motion.a>
-                            ))}
-                        </div>
+                                        {example.title}
+                                    </h3>
+                                    <p style={{
+                                        color: 'var(--accent-secondary)',
+                                        fontWeight: '600',
+                                        fontSize: '1.1rem',
+                                        display: 'flex',
+                                        alignItems: 'center',
+                                        justifyContent: 'center',
+                                        gap: '0.5rem'
+                                    }}>
+                                        {example.label} <ArrowRight size={20} />
+                                    </p>
+                                </div>
+                            </motion.a>
+                        ))}
                     </div>
                 </div>
             </section>
@@ -247,8 +314,8 @@ const Home = () => {
                         {t.pricing.title} <span className="gradient-text">{t.pricing.titleHighlight}</span>
                     </motion.h2>
 
-                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', maxWidth: '900px', margin: '0 auto' }}>
-                        {/* Basic Plan */}
+                    <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
+                        {/* Basic Plan $149 */}
                         <motion.div
                             variants={itemVariants}
                             whileHover={{ scale: 1.02 }}
@@ -260,13 +327,13 @@ const Home = () => {
                                 position: 'relative'
                             }}
                         >
-                            <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{t.pricing.starter}</h3>
-                            <div style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem' }}>$299</div>
-                            <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>{t.pricing.starterDesc}</p>
+                            <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{t.pricing.basic}</h3>
+                            <div style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem' }}>$149</div>
+                            <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>{t.pricing.basicDesc}</p>
 
                             <ul style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
                                 {[
-                                    t.pricing.features.onePage,
+                                    t.pricing.features.multiPage,
                                     t.pricing.features.responsive,
                                     t.pricing.features.contact,
                                     t.pricing.features.social,
@@ -278,10 +345,10 @@ const Home = () => {
                                 ))}
                             </ul>
 
-                            <Link to="/ticket?plan=starter" className="btn btn-outline" style={{ width: '100%', display: 'block', textAlign: 'center' }}>{t.pricing.chooseStarter}</Link>
+                            <Link to="/ticket?plan=basic" className="btn btn-outline" style={{ width: '100%', display: 'block', textAlign: 'center' }}>{t.pricing.chooseBasic}</Link>
                         </motion.div>
 
-                        {/* Pro Plan */}
+                        {/* Starter Plan $299 (Custom) */}
                         <motion.div
                             variants={itemVariants}
                             whileHover={{ scale: 1.02 }}
@@ -300,6 +367,40 @@ const Home = () => {
                             }}>
                                 {t.pricing.popular}
                             </div>
+                            <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{t.pricing.starter}</h3>
+                            <div style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem' }}>$299</div>
+                            <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>{t.pricing.starterDesc}</p>
+
+                            <ul style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                {[
+                                    t.pricing.features.multiPage,
+                                    t.pricing.features.customDesign,
+                                    t.pricing.features.animations,
+                                    t.pricing.features.contact,
+                                    t.pricing.features.social,
+                                    t.pricing.features.delivery1
+                                ].map(item => (
+                                    <li key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                        <Check size={18} color="#6366f1" /> {item}
+                                    </li>
+                                ))}
+                            </ul>
+
+                            <Link to="/ticket?plan=starter" className="btn btn-primary" style={{ width: '100%', display: 'block', textAlign: 'center' }}>{t.pricing.chooseStarter}</Link>
+                        </motion.div>
+
+                        {/* Pro Plan $1099 */}
+                        <motion.div
+                            variants={itemVariants}
+                            whileHover={{ scale: 1.02 }}
+                            style={{
+                                padding: '2.5rem',
+                                background: 'var(--card-bg)',
+                                border: '1px solid var(--card-border)',
+                                borderRadius: '24px',
+                                position: 'relative'
+                            }}
+                        >
                             <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{t.pricing.pro}</h3>
                             <div style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem' }}>$1099</div>
                             <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>{t.pricing.proDesc}</p>
@@ -319,7 +420,7 @@ const Home = () => {
                                 ))}
                             </ul>
 
-                            <Link to="/ticket?plan=pro" className="btn btn-primary" style={{ width: '100%', display: 'block', textAlign: 'center' }}>{t.pricing.choosePro}</Link>
+                            <Link to="/ticket?plan=pro" className="btn btn-outline" style={{ width: '100%', display: 'block', textAlign: 'center' }}>{t.pricing.choosePro}</Link>
                         </motion.div>
                     </div>
                 </div>
@@ -440,6 +541,48 @@ const Home = () => {
                     </div>
                 </div>
             </section>
+
+            {/* Footer Section */}
+            <footer style={{
+                padding: '4rem 0 2rem',
+                background: 'var(--bg-secondary)',
+                borderTop: '1px solid var(--card-border)',
+                textAlign: 'center'
+            }}>
+                <div className="container">
+                    <motion.div
+                        variants={itemVariants}
+                        initial="hidden"
+                        whileInView="visible"
+                        viewport={{ once: true }}
+                    >
+                        <img
+                            src={logoImg}
+                            alt="Galaktik Corp Logo"
+                            style={{
+                                height: '120px',
+                                width: 'auto',
+                                marginBottom: '1.5rem',
+                                filter: 'drop-shadow(0 0 10px rgba(99, 102, 241, 0.3))'
+                            }}
+                        />
+                        <p style={{
+                            color: 'var(--text-secondary)',
+                            marginBottom: '1rem',
+                            fontSize: '1.1rem',
+                            fontStyle: 'italic'
+                        }}>
+                            {t.footer.message}
+                        </p>
+                        <p style={{
+                            color: 'var(--text-tertiary)',
+                            fontSize: '0.9rem'
+                        }}>
+                            © {t.footer.copyright}
+                        </p>
+                    </motion.div>
+                </div>
+            </footer>
         </motion.div>
     );
 };

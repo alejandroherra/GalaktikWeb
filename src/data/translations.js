@@ -6,13 +6,15 @@ export const translations = {
             socials: 'Redes',
             work: 'Trabaja con Nosotros',
             support: 'Soporte',
-            faq: 'FAQ'
+            faq: 'FAQ',
+            track: 'Rastrear Ticket'
         },
         hero: {
             teamIntro: 'Somos un equipo integral de expertos en desarrollo y soporte, dedicados a crear, mejorar y mantener tu presencia digital.',
+            whoWeAre: 'Quiénes somos',
             title: 'Construye Tu',
             subtitle: 'Sitio Web Soñado',
-            desc: 'Desarrollo web profesional desde $299. Moderno, responsive y optimizado para tu negocio.',
+            desc: 'Desarrollo web profesional desde $149. Moderno, responsive y optimizado para tu negocio.',
             start: 'Comenzar',
             plans: 'Ver Planes'
         },
@@ -24,37 +26,62 @@ export const translations = {
             fast: 'Súper Rápido',
             fastDesc: 'Rendimiento optimizado para la mejor experiencia de usuario',
             secure: 'Seguro',
-            secureDesc: 'Construido con las mejores prácticas de seguridad'
+            secureDesc: 'Construido con las mejores prácticas de seguridad',
+            maintenance: 'Revisión de Software',
+            maintenanceDesc: 'Revisamos tu software para asegurar su funcionamiento óptimo.',
+            upgrade: 'Actualización de Software',
+            upgradeDesc: 'Upgradeamos tu software con las últimas tecnologías.',
+            sectionTitle: '¿Qué Ofrecemos?'
+        },
+        track: {
+            title: 'Rastrear',
+            titleHighlight: 'Ticket',
+            desc: 'Ingresa el ID de tu ticket para ver el estado actual.',
+            placeholder: 'Ingresa tu Ticket ID (ej. 7A2B9C)',
+            searching: 'Buscando...',
+            btn: 'Rastrear',
+            notFound: 'Ticket no encontrado. Verifica el ID.',
+            error: 'Error al buscar el ticket. Intenta de nuevo.',
+            status: 'Estado',
+            lastUpdate: 'Última Actualización',
+            ticketId: 'ID del Ticket',
+            client: 'Cliente',
+            details: 'Detalles'
         },
         examples: {
             title: 'Ejemplos de',
             titleHighlight: 'Websites',
-            click299: 'Click para ver opciones de $299',
-            click1099: 'Click para ver opciones de $1099',
-            options299: 'Opciones de $299',
-            options1099: 'Opciones de $1099'
+            click149: 'Click para ver opción de $149',
+            click299: 'Click para ver opción de $299',
+            click1099: 'Click para ver opción de $1099',
+            options149: 'Opción de $149',
+            options299: 'Opción de $299',
+            options1099: 'Opción de $1099'
         },
         pricing: {
             title: 'Elige Tu',
             titleHighlight: 'Plan',
-            starter: 'Inicial',
-            starterDesc: 'Perfecto para sitios web simples',
+            basic: 'Básico',
+            basicDesc: 'Sitio web multi-página funcional',
+            starter: 'Personalizado',
+            starterDesc: 'Diseño único y animado',
             pro: 'Profesional',
             proDesc: 'Para proyectos complejos con backend',
             popular: 'POPULAR',
-            chooseStarter: 'Elegir Inicial',
+            chooseBasic: 'Elegir Básico',
+            chooseStarter: 'Elegir Personalizado',
             choosePro: 'Elegir Profesional',
             features: {
-                onePage: 'Sitio Web de Una Página',
+                multiPage: 'Sitio Web Multi-página',
                 responsive: 'Diseño Responsive',
                 contact: 'Formulario de Contacto',
                 social: 'Integración Redes Sociales',
                 delivery1: 'Entrega en 1 Semana',
-                multiPage: 'Sitio Web Multi-página',
+                customDesign: 'Diseño 100% Personalizado',
+                animations: 'Animaciones Avanzadas',
                 backend: 'Integración Backend',
                 database: 'Configuración Base de Datos',
                 auth: 'Autenticación de Usuarios',
-                animations: 'Animaciones Avanzadas',
                 support: '30 Días de Soporte'
             }
         },
@@ -79,15 +106,28 @@ export const translations = {
             phone: 'Número de Teléfono',
             email: 'Correo Electrónico',
             plan: 'Seleccionar Plan',
-            starterPlan: 'Inicial - $299',
+            basicPlan: 'Básico - $149',
+            starterPlan: 'Personalizado - $299',
             proPlan: 'Profesional - $1099',
             customQuote: 'Cotización Personalizada',
             details: 'Detalles del Proyecto',
             detailsPlaceholder: 'Cuéntanos sobre tu proyecto...',
             send: 'Enviar Solicitud',
             success: 'Hemos recibido tu cotización, pronto te responderemos por correo.',
+            successTitle: '¡Cotización Enviada!',
+            screenshotReminder: '📸 Por favor toma una captura de pantalla de tu ID',
+            trackReminder: 'Podrás usar este ID para rastrear el estado de tu ticket en la sección "Rastrear Ticket". Revisa tu carpeta de Spam si no ves el correo.',
+            understood: 'Entendido',
             maintenance: 'Mantenimiento Web - $29.99/mes',
             upgrade: 'Actualización de Tecnología'
+        },
+        admin: {
+            login: 'Iniciar Sesión',
+            email: 'Correo Electrónico',
+            password: 'Contraseña',
+            dashboard: 'Panel de Control',
+            logout: 'Cerrar Sesión',
+            noTickets: 'No hay tickets pendientes'
         },
         social: {
             title: 'Conéctate',
@@ -96,7 +136,7 @@ export const translations = {
         work: {
             title: 'Trabaja',
             titleHighlight: 'Con Nosotros',
-            desc: 'Únete a nuestro equipo de desarrolladores talentosos',
+            desc: 'Únete a nuestro equipo',
             name: 'Nombre Completo',
             email: 'Correo Electrónico',
             role: 'Puesto de Interés',
@@ -125,7 +165,7 @@ export const translations = {
             q1: '¿Cuánto tiempo tarda en completarse una página web?',
             a1: 'El tiempo de desarrollo varía según la complejidad del proyecto. Una página básica ($299) toma de 1 semana a 10 días, mientras que un proyecto complejo ($1099) puede tomar de 2 a 4 semanas.',
             q2: '¿Cuáles son los métodos de pago disponibles?',
-            a2: 'Aceptamos múltiples métodos de pago para tu comodidad: PayPal, SINPE Móvil, y transferencias bancarias a Banco Nacional (BN) o BAC.',
+            a2: 'Aceptamos múltiples métodos de pago para tu comodidad: PayPal, Airtm, Payoneer, Payway, SINPE Móvil, y transferencias bancarias a Banco Nacional (BN) o BAC.',
             q3: '¿Cuándo debo realizar el pago?',
             a3: 'El pago se realiza al finalizar y entregar la página web completamente funcional. No cobramos nada por adelantado, solo cuando estés 100% satisfecho con el resultado.',
             q4: '¿Tendré acceso al código de mi página web?',
@@ -133,7 +173,11 @@ export const translations = {
             q5: '¿Qué tan confiable es Galaktik Websites?',
             a5: 'Somos una empresa seria y profesional. Nuestro compromiso es entregar trabajo de calidad y solo cobramos cuando entregamos la página completada. Tu satisfacción es nuestra prioridad.',
             q6: '¿Es un solo pago o hay que seguir pagando?',
-            a6: 'El diseño web es un pago único. Sin embargo, para que tu página esté en línea necesitas Hosting y Dominio. El hosting puede variar desde $14 mensuales hasta $46 por 6 meses, dependiendo de tu elección y proveedor. Este es un costo externo necesario para mantener cualquier sitio web activo.'
+            a6: 'El diseño web es un pago único. Sin embargo, para que tu página esté en línea necesitas comprar un dominio (ej. www.tunegocio.com) que puedes consultar en https://www.godaddy.com/es y un hosting privado que normalmente varía de $14 por mes a $46 por 6 meses dependiendo de la oferta. Sin embargo, también te ofrecemos hosting gratis con tu plan.',
+            q7: '¿Cómo planearé mi website o cómo lo diseñaré?',
+            a7: 'Todo comienza con una llamada. Nos reunimos contigo para escuchar tus ideas, entender tu visión y presentarte modelos de ejemplo que se ajusten a tus necesidades. Juntos definimos el estilo y la estructura perfecta para tu negocio.',
+            q8: '¿Puedo empezar con un plan básico e ir mejorando el website?',
+            a8: '¡Sí, absolutamente! Puedes empezar con un plan básico y escalar a medida que tu negocio crece. Nos encanta ayudar a nuestros clientes a empezar desde cero, aumentar sus ventas y crecer hasta construir todo un imperio digital.'
         },
         support: {
             title: 'Centro de',
@@ -148,6 +192,11 @@ export const translations = {
                 title: 'Llamada Directa',
                 desc: 'Habla directamente con nuestro equipo de soporte.',
                 btn: 'Llamar Ahora'
+            },
+            track: {
+                title: 'Rastrear Ticket',
+                desc: 'Revisa el estado de tu solicitud o ticket.',
+                btn: 'Rastrear Ahora'
             }
         },
         maintenance: {
@@ -180,6 +229,10 @@ export const translations = {
                 note: '* El costo se calcula según requerimientos',
                 btn: 'Cotizar Upgrade'
             }
+        },
+        footer: {
+            copyright: 'Galaktik corp todos derechos reservados desde 2021- 2025',
+            message: 'Innovando el futuro digital, un pixel a la vez.'
         }
     },
     en: {
@@ -189,13 +242,15 @@ export const translations = {
             socials: 'Socials',
             work: 'Work With Us',
             support: 'Support',
-            faq: 'FAQ'
+            faq: 'FAQ',
+            track: 'Track Ticket'
         },
         hero: {
             teamIntro: 'We are a comprehensive team of development and support experts, dedicated to creating, improving, and maintaining your digital presence.',
+            whoWeAre: 'Who we are',
             title: 'Build Your',
             subtitle: 'Dream Website',
-            desc: 'Professional web development from $299. Modern, responsive, and optimized for your business.',
+            desc: 'Professional web development from $149. Modern, responsive, and optimized for your business.',
             start: 'Get Started',
             plans: 'View Plans'
         },
@@ -207,37 +262,62 @@ export const translations = {
             fast: 'Blazing Fast',
             fastDesc: 'Optimized performance for best user experience',
             secure: 'Secure',
-            secureDesc: 'Built with security best practices'
+            secureDesc: 'Built with security best practices',
+            maintenance: 'Software Review',
+            maintenanceDesc: 'We review your software to ensure optimal performance.',
+            upgrade: 'Software Upgrade',
+            upgradeDesc: 'We upgrade your software with the latest technologies.',
+            sectionTitle: 'What We Offer?'
+        },
+        track: {
+            title: 'Track',
+            titleHighlight: 'Ticket',
+            desc: 'Enter your ticket ID to see the current status.',
+            placeholder: 'Enter your Ticket ID (e.g. 7A2B9C)',
+            searching: 'Searching...',
+            btn: 'Track',
+            notFound: 'Ticket not found. Check the ID.',
+            error: 'Error searching for ticket. Try again.',
+            status: 'Status',
+            lastUpdate: 'Last Update',
+            ticketId: 'Ticket ID',
+            client: 'Client',
+            details: 'Details'
         },
         examples: {
             title: 'Website',
             titleHighlight: 'Examples',
-            click299: 'Click to view $299 options',
-            click1099: 'Click to view $1099 options',
-            options299: '$299 Options',
-            options1099: '$1099 Options'
+            click149: 'Click to view $149 option',
+            click299: 'Click to view $299 option',
+            click1099: 'Click to view $1099 option',
+            options149: '$149 Option',
+            options299: '$299 Option',
+            options1099: '$1099 Option'
         },
         pricing: {
             title: 'Choose Your',
             titleHighlight: 'Plan',
-            starter: 'Starter',
-            starterDesc: 'Perfect for simple websites',
+            basic: 'Basic',
+            basicDesc: 'Functional multi-page website',
+            starter: 'Custom',
+            starterDesc: 'Unique design with animations',
             pro: 'Professional',
             proDesc: 'For complex projects with backend',
             popular: 'POPULAR',
-            chooseStarter: 'Choose Starter',
+            chooseBasic: 'Choose Basic',
+            chooseStarter: 'Choose Custom',
             choosePro: 'Choose Professional',
             features: {
-                onePage: 'Single Page Website',
+                multiPage: 'Multi-Page Website',
                 responsive: 'Responsive Design',
                 contact: 'Contact Form',
                 social: 'Social Media Integration',
                 delivery1: '1 Week Delivery',
-                multiPage: 'Multi-Page Website',
+                customDesign: '100% Custom Design',
+                animations: 'Advanced Animations',
                 backend: 'Backend Integration',
                 database: 'Database Setup',
                 auth: 'User Authentication',
-                animations: 'Advanced Animations',
                 support: '30 Days Support'
             }
         },
@@ -262,15 +342,28 @@ export const translations = {
             phone: 'Phone Number',
             email: 'Email Address',
             plan: 'Select Plan',
-            starterPlan: 'Starter - $299',
+            basicPlan: 'Basic - $149',
+            starterPlan: 'Custom - $299',
             proPlan: 'Professional - $1099',
             customQuote: 'Custom Quote',
             details: 'Project Details',
             detailsPlaceholder: 'Tell us about your project...',
             send: 'Send Request',
             success: 'We have received your quote, we will answer you by email soon.',
+            successTitle: 'Quote Sent!',
+            screenshotReminder: '📸 Please take a screenshot of your ID',
+            trackReminder: 'You can use this ID to track your ticket status in the "Track Ticket" section. Check your Spam folder if you don\'t see the email.',
+            understood: 'Understood',
             maintenance: 'Web Maintenance - $29.99/mo',
             upgrade: 'Technology Upgrade'
+        },
+        admin: {
+            login: 'Login',
+            email: 'Email',
+            password: 'Password',
+            dashboard: 'Dashboard',
+            logout: 'Logout',
+            noTickets: 'No pending tickets'
         },
         social: {
             title: 'Connect',
@@ -279,7 +372,7 @@ export const translations = {
         work: {
             title: 'Work',
             titleHighlight: 'With Us',
-            desc: 'Join our team of talented developers',
+            desc: 'Join our team',
             name: 'Full Name',
             email: 'Email Address',
             role: 'Role of Interest',
@@ -294,12 +387,14 @@ export const translations = {
             salary: 'Salary Expectation',
             salaryPlaceholder: 'e.g. $2000/month',
             message: 'Message',
-            message: 'Message',
             cv: 'Link to CV (Drive, LinkedIn, etc.)',
             cvPlaceholder: 'https://...',
             submit: 'Submit Application',
-            submit: 'Submit Application',
             success: 'We have received your request, we will contact you soon.',
+            successTitle: 'Application Sent!',
+            screenshotReminder: '📸 Please take a screenshot of your ID',
+            trackReminder: 'You can use this ID to track your application status. Check your Spam folder if you don\'t see the email.',
+            understood: 'Understood'
         },
         faq: {
             title: 'Frequently Asked',
@@ -308,7 +403,7 @@ export const translations = {
             q1: 'How long does it take to complete a website?',
             a1: 'Development time varies based on project complexity. A basic page ($299) takes 1 week to 10 days, while a complex project ($1099) can take 2 to 4 weeks.',
             q2: 'What payment methods are available?',
-            a2: 'We accept multiple payment methods for your convenience: PayPal, SINPE Móvil, and bank transfers to Banco Nacional (BN) or BAC.',
+            a2: 'We accept multiple payment methods for your convenience: PayPal, Airtm, Payoneer, Payway, SINPE Móvil, and bank transfers to Banco Nacional (BN) or BAC.',
             q3: 'When do I need to make the payment?',
             a3: 'Payment is made upon completion and delivery of the fully functional website. We don\'t charge anything upfront, only when you\'re 100% satisfied with the result.',
             q4: 'Will I have access to my website\'s code?',
@@ -316,7 +411,11 @@ export const translations = {
             q5: 'How reliable is Galaktik Websites?',
             a5: 'We are a serious and professional company. Our commitment is to deliver quality work and we only charge when we deliver the completed page. Your satisfaction is our priority.',
             q6: 'Is it a one-time payment or are there recurring costs?',
-            a6: 'The web design is a one-time payment. However, to keep your site online you need Hosting and Domain. Hosting can vary from $14 monthly to $46 for 6 months, depending on your choice and provider. This is a necessary external cost to keep any website active.'
+            a6: 'The web design is a one-time payment. However, to keep your site online you need to purchase a domain (e.g. www.yourbusiness.com) which you can check at https://www.godaddy.com and a private hosting that normally varies from $14 per month to $46 for 6 months depending on the offer. However, we also offer you free hosting with your plan.',
+            q7: 'How will I plan or design my website?',
+            a7: 'It all starts with a call. We meet with you to listen to your ideas, understand your vision, and present example models that fit your needs. Together we define the perfect style and structure for your business.',
+            q8: 'Can I start with a basic plan and upgrade later?',
+            a8: 'Yes, absolutely! You can start with a basic plan and scale as your business grows. We love helping our clients start from scratch, increase their sales, and grow to build a complete digital empire.'
         },
         support: {
             title: 'Support',
@@ -331,6 +430,11 @@ export const translations = {
                 title: 'Direct Call',
                 desc: 'Speak directly with our support team.',
                 btn: 'Call Now'
+            },
+            track: {
+                title: 'Track Ticket',
+                desc: 'Check the status of your request or ticket.',
+                btn: 'Track Now'
             }
         },
         maintenance: {
@@ -363,6 +467,10 @@ export const translations = {
                 note: '* Cost calculated based on requirements',
                 btn: 'Quote Upgrade'
             }
+        },
+        footer: {
+            copyright: 'Galaktik corp all rights reserved since 2021 - 2025',
+            message: 'Innovating the digital future, one pixel at a time.'
         }
     }
 };

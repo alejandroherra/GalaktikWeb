@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://galaktikwebsites.com/sitemap.xml
+
+# Block admin pages if you have any
+Disallow: /admin
