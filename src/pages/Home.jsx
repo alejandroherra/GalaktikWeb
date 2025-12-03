@@ -7,6 +7,7 @@ import manitosImg from '../assets/manitos.jpg';
 import travelsImg from '../assets/travels.jpg';
 import wyndhamImg from '../assets/wyndham.jpg';
 import logoImg from '../assets/logo.png';
+import spaceImg from '../assets/space.jpg';
 import SEO from '../components/SEO';
 
 const Home = () => {
@@ -69,20 +70,15 @@ const Home = () => {
                             overflow: 'hidden'
                         }}
                     >
-                        <motion.div
-                            animate={{
-                                background: [
-                                    'linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.1) 50%, transparent 100%)',
-                                    'linear-gradient(90deg, transparent 100%, rgba(139, 92, 246, 0.1) 0%, transparent 0%)'
-                                ]
-                            }}
-                            transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
+                        {/* Removed expensive infinite animation for mobile performance */}
+                        <div
                             style={{
                                 position: 'absolute',
                                 top: 0,
                                 left: 0,
                                 right: 0,
                                 bottom: 0,
+                                background: 'linear-gradient(90deg, transparent 0%, rgba(139, 92, 246, 0.1) 50%, transparent 100%)',
                                 zIndex: 0
                             }}
                         />
@@ -99,6 +95,24 @@ const Home = () => {
                             }}
                         >
                             <span className="gradient-text">{t.hero.whoWeAre}</span>
+                            <motion.span
+                                initial={{ scale: 1 }}
+                                whileHover={{ scale: 1.05 }}
+                                style={{
+                                    fontSize: '0.9rem',
+                                    background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
+                                    color: '#000',
+                                    padding: '0.2rem 0.8rem',
+                                    borderRadius: '20px',
+                                    marginLeft: '1rem',
+                                    verticalAlign: 'middle',
+                                    fontWeight: 'bold',
+                                    boxShadow: '0 0 10px rgba(255, 215, 0, 0.5)',
+                                    display: 'inline-block'
+                                }}
+                            >
+                                ✦ {t.hero.sold}
+                            </motion.span>
                         </motion.h2>
                         <p style={{
                             fontSize: 'clamp(1rem, 2vw, 1.25rem)',
@@ -178,7 +192,7 @@ const Home = () => {
             {/* Examples Section */}
             <section style={{
                 padding: '5rem 0',
-                backgroundImage: 'url(/src/assets/space.jpg)',
+                backgroundImage: `url(${spaceImg})`,
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
@@ -307,6 +321,7 @@ const Home = () => {
                 </div>
             </section>
 
+
             {/* Pricing Section */}
             <section id="pricing" style={{ padding: '5rem 0', width: '100%' }}>
                 <div className="container">
@@ -423,6 +438,42 @@ const Home = () => {
                             <Link to="/ticket?plan=pro" className="btn btn-outline" style={{ width: '100%', display: 'block', textAlign: 'center' }}>{t.pricing.choosePro}</Link>
                         </motion.div>
                     </div>
+                </div>
+            </section>
+
+            {/* Software Implementation Section */}
+            <section style={{ padding: '5rem 0', background: 'var(--bg-secondary)', width: '100%' }}>
+                <div className="container">
+                    <motion.h2 variants={itemVariants} style={{ textAlign: 'center', fontSize: '2.5rem', marginBottom: '1rem' }}>
+                        {t.implementation.title} <span className="gradient-text">{t.implementation.titleHighlight}</span>
+                    </motion.h2>
+                    <motion.p variants={itemVariants} style={{ textAlign: 'center', color: 'var(--text-secondary)', maxWidth: '700px', margin: '0 auto 3rem', fontSize: '1.1rem' }}>
+                        {t.implementation.desc}
+                    </motion.p>
+
+                    <motion.div
+                        variants={itemVariants}
+                        whileHover={{ scale: 1.02 }}
+                        style={{
+                            maxWidth: '600px',
+                            margin: '0 auto',
+                            padding: '2.5rem',
+                            background: 'linear-gradient(145deg, rgba(99, 102, 241, 0.05) 0%, rgba(10, 10, 10, 0) 100%)',
+                            border: '1px solid var(--card-border)',
+                            borderRadius: '24px',
+                            position: 'relative'
+                        }}
+                    >
+                        <ul style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                            {t.implementation.features.map(item => (
+                                <li key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                    <Check size={18} color="#6366f1" /> {item}
+                                </li>
+                            ))}
+                        </ul>
+
+                        <Link to="/ticket?plan=implementation" className="btn btn-primary" style={{ width: '100%', display: 'block', textAlign: 'center' }}>{t.implementation.btn}</Link>
+                    </motion.div>
                 </div>
             </section>
 
@@ -559,6 +610,8 @@ const Home = () => {
                         <img
                             src={logoImg}
                             alt="Galaktik Corp Logo"
+                            width="120"
+                            height="120"
                             style={{
                                 height: '120px',
                                 width: 'auto',
@@ -583,7 +636,7 @@ const Home = () => {
                     </motion.div>
                 </div>
             </footer>
-        </motion.div>
+        </motion.div >
     );
 };
 

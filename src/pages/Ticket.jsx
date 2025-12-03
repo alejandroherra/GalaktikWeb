@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useSearchParams } from 'react-router-dom';
 import { Send } from 'lucide-react';
@@ -9,19 +9,34 @@ import { db } from '../config/firebase';
 import { useLanguage } from '../context/LanguageContext';
 import SEO from '../components/SEO';
 
+import { useAuth } from '../context/AuthContext';
+
 const Ticket = () => {
     const { t } = useLanguage();
+    const { user, userData } = useAuth();
     const [searchParams] = useSearchParams();
     const selectedPlan = searchParams.get('plan') || 'starter';
     const [loading, setLoading] = useState(false);
 
     const [formData, setFormData] = useState({
-        name: '',
+        name: userData?.name || '',
         phone: '',
-        email: '',
+        email: userData?.email || '',
         plan: selectedPlan,
-        message: ''
+        message: '',
+        websiteUrl: ''
     });
+
+    // Update form data when userData loads
+    useEffect(() => {
+        if (userData) {
+            setFormData(prev => ({
+                ...prev,
+                name: userData.name || prev.name,
+                email: userData.email || prev.email
+            }));
+        }
+    }, [userData]);
 
     const generateTicketId = () => {
         return 'REQ-' + Math.floor(1000 + Math.random() * 9000);
@@ -37,6 +52,7 @@ const Ticket = () => {
             // 1. Save to Firestore
             await setDoc(doc(db, "tickets", ticketId), {
                 ...formData,
+                userId: user?.uid || null, // Link to user ID
                 status: 'Pending',
                 createdAt: serverTimestamp(),
                 updatedAt: serverTimestamp(),
@@ -56,6 +72,7 @@ const Ticket = () => {
                 reply_to: formData.email,
                 plan: formData.plan,
                 message: formData.message,
+                website_url: formData.websiteUrl || 'N/A',
                 ticket_id: ticketId
             };
 
@@ -91,7 +108,8 @@ const Ticket = () => {
                 phone: '',
                 email: '',
                 plan: selectedPlan,
-                message: ''
+                message: '',
+                websiteUrl: ''
             });
 
         } catch (error) {
@@ -125,6 +143,36 @@ const Ticket = () => {
                 <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
                     <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>{t.ticket.title} <span className="gradient-text">{t.ticket.titleHighlight}</span></h1>
                     <p style={{ color: 'var(--text-secondary)' }}>{t.ticket.desc}</p>
+
+                    {user ? (
+                        <div style={{
+                            marginTop: '1rem',
+                            padding: '0.5rem 1rem',
+                            background: 'rgba(34, 197, 94, 0.1)',
+                            color: '#4ade80',
+                            borderRadius: '20px',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.5rem',
+                            fontSize: '0.9rem'
+                        }}>
+                            <span>●</span> {t.ticket.loggedIn} {userData?.name || user.email}
+                        </div>
+                    ) : (
+                        <div style={{
+                            marginTop: '1rem',
+                            padding: '0.5rem 1rem',
+                            background: 'rgba(251, 191, 36, 0.1)',
+                            color: '#fbbf24',
+                            borderRadius: '20px',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.5rem',
+                            fontSize: '0.9rem'
+                        }}>
+                            <span>●</span> {t.ticket.notLoggedIn}
+                        </div>
+                    )}
                 </div>
 
                 <form onSubmit={handleSubmit} style={{
@@ -209,10 +257,33 @@ const Ticket = () => {
                             <option value="basic" style={{ background: '#1a1b2e' }}>{t.ticket.basicPlan}</option>
                             <option value="starter" style={{ background: '#1a1b2e' }}>{t.ticket.starterPlan}</option>
                             <option value="pro" style={{ background: '#1a1b2e' }}>{t.ticket.proPlan}</option>
+                            <option value="implementation" style={{ background: '#1a1b2e' }}>{t.ticket.implementation}</option>
                             <option value="maintenance" style={{ background: '#1a1b2e' }}>{t.ticket.maintenance}</option>
                             <option value="upgrade" style={{ background: '#1a1b2e' }}>{t.ticket.upgrade}</option>
                         </select>
                     </div>
+
+                    {/* Conditional Website URL field */}
+                    {(formData.plan === 'implementation' || formData.plan === 'upgrade' || formData.plan === 'maintenance') && (
+                        <div style={{ marginBottom: '1.5rem' }}>
+                            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>{t.ticket.websiteUrl}</label>
+                            <input
+                                type="url"
+                                value={formData.websiteUrl}
+                                onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })}
+                                placeholder="https://example.com"
+                                style={{
+                                    width: '100%',
+                                    padding: '0.75rem',
+                                    background: 'rgba(255,255,255,0.05)',
+                                    border: '1px solid rgba(255,255,255,0.1)',
+                                    borderRadius: '8px',
+                                    color: 'white',
+                                    outline: 'none'
+                                }}
+                            />
+                        </div>
+                    )}
 
                     <div style={{ marginBottom: '2rem' }}>
                         <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>{t.ticket.details}</label>

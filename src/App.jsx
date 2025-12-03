@@ -7,6 +7,9 @@ import Navbar from './components/Navbar';
 import ErrorBoundary from './components/ErrorBoundary';
 import './styles/index.css';
 
+import { AuthProvider } from './context/AuthContext';
+import ProtectedRoute from './components/ProtectedRoute';
+
 // Lazy load pages for performance
 const Home = lazy(() => import('./pages/Home'));
 const Ticket = lazy(() => import('./pages/Ticket'));
@@ -17,6 +20,9 @@ const Support = lazy(() => import('./pages/Support'));
 const TrackTicket = lazy(() => import('./pages/TrackTicket'));
 const Admin = lazy(() => import('./pages/Admin'));
 const NotFound = lazy(() => import('./pages/NotFound'));
+const Login = lazy(() => import('./pages/Login'));
+const VerifyEmail = lazy(() => import('./pages/VerifyEmail'));
+const Dashboard = lazy(() => import('./pages/Dashboard'));
 
 // Loading component
 const PageLoader = () => (
@@ -57,7 +63,21 @@ const AnimatedRoutes = () => {
         <Route path="/work-with-us" element={<WorkWithUs />} />
         <Route path="/support" element={<Support />} />
         <Route path="/track" element={<TrackTicket />} />
-        <Route path="/admin" element={<Admin />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/verify-email" element={<VerifyEmail />} />
+
+        {/* Protected Routes */}
+        <Route path="/dashboard" element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        } />
+        <Route path="/admin" element={
+          <ProtectedRoute requireAdmin={true}>
+            <Admin />
+          </ProtectedRoute>
+        } />
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </AnimatePresence>
@@ -69,14 +89,16 @@ function App() {
     <HelmetProvider>
       <ErrorBoundary>
         <LanguageProvider>
-          <Router>
-            <div className="app">
-              <Navbar />
-              <Suspense fallback={<PageLoader />}>
-                <AnimatedRoutes />
-              </Suspense>
-            </div>
-          </Router>
+          <AuthProvider>
+            <Router>
+              <div className="app">
+                <Navbar />
+                <Suspense fallback={<PageLoader />}>
+                  <AnimatedRoutes />
+                </Suspense>
+              </div>
+            </Router>
+          </AuthProvider>
         </LanguageProvider>
       </ErrorBoundary>
     </HelmetProvider>

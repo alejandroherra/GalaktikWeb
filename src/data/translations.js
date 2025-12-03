@@ -12,6 +12,7 @@ export const translations = {
         hero: {
             teamIntro: 'Somos un equipo integral de expertos en desarrollo y soporte, dedicados a crear, mejorar y mantener tu presencia digital.',
             whoWeAre: 'Quiénes somos',
+            sold: '+100 sitios web vendidos',
             title: 'Construye Tu',
             subtitle: 'Sitio Web Soñado',
             desc: 'Desarrollo web profesional desde $149. Moderno, responsive y optimizado para tu negocio.',
@@ -119,7 +120,11 @@ export const translations = {
             trackReminder: 'Podrás usar este ID para rastrear el estado de tu ticket en la sección "Rastrear Ticket". Revisa tu carpeta de Spam si no ves el correo.',
             understood: 'Entendido',
             maintenance: 'Mantenimiento Web - $29.99/mes',
-            upgrade: 'Actualización de Tecnología'
+            upgrade: 'Actualización de Tecnología',
+            loggedIn: 'Iniciado como',
+            notLoggedIn: 'No iniciado - El ticket no se vinculará',
+            implementation: 'Implementación de Software',
+            websiteUrl: 'URL del Sitio Web (Si aplica)'
         },
         admin: {
             login: 'Iniciar Sesión',
@@ -230,6 +235,18 @@ export const translations = {
                 btn: 'Cotizar Upgrade'
             }
         },
+        implementation: {
+            title: 'Implementación de',
+            titleHighlight: 'Software',
+            desc: 'Implementamos soluciones de software a medida: logins, paneles de administración, bases de datos y más.',
+            features: [
+                'Sistemas de Login/Registro',
+                'Paneles Administrativos',
+                'Gestión de Bases de Datos',
+                'Integraciones API'
+            ],
+            btn: 'Cotizar Implementación'
+        },
         footer: {
             copyright: 'Galaktik corp todos derechos reservados desde 2021- 2025',
             message: 'Innovando el futuro digital, un pixel a la vez.'
@@ -248,6 +265,7 @@ export const translations = {
         hero: {
             teamIntro: 'We are a comprehensive team of development and support experts, dedicated to creating, improving, and maintaining your digital presence.',
             whoWeAre: 'Who we are',
+            sold: '+100 websites sold',
             title: 'Build Your',
             subtitle: 'Dream Website',
             desc: 'Professional web development from $149. Modern, responsive, and optimized for your business.',
@@ -355,7 +373,11 @@ export const translations = {
             trackReminder: 'You can use this ID to track your ticket status in the "Track Ticket" section. Check your Spam folder if you don\'t see the email.',
             understood: 'Understood',
             maintenance: 'Web Maintenance - $29.99/mo',
-            upgrade: 'Technology Upgrade'
+            upgrade: 'Technology Upgrade',
+            loggedIn: 'Logged in as',
+            notLoggedIn: 'Not logged in - Ticket will not be linked to account',
+            implementation: 'Software Implementation',
+            websiteUrl: 'Website URL (If applicable)'
         },
         admin: {
             login: 'Login',
@@ -467,6 +489,18 @@ export const translations = {
                 note: '* Cost calculated based on requirements',
                 btn: 'Quote Upgrade'
             }
+        },
+        implementation: {
+            title: 'Software',
+            titleHighlight: 'Implementation',
+            desc: 'We implement custom software solutions: logins, admin panels, databases, and more.',
+            features: [
+                'Login/Register Systems',
+                'Admin Panels',
+                'Database Management',
+                'API Integrations'
+            ],
+            btn: 'Quote Implementation'
         },
         footer: {
             copyright: 'Galaktik corp all rights reserved since 2021 - 2025',

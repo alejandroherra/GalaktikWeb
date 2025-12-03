@@ -6,10 +6,12 @@ import Swal from 'sweetalert2';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { useLanguage } from '../context/LanguageContext';
+import { useAuth } from '../context/AuthContext';
 import SEO from '../components/SEO';
 
 const WorkWithUs = () => {
     const { t } = useLanguage();
+    const { user, userData } = useAuth();
     const [loading, setLoading] = useState(false);
     const [cv, setCv] = useState('');
 
@@ -129,6 +131,36 @@ const WorkWithUs = () => {
                 <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
                     <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>{t.work.title} <span className="gradient-text">{t.work.titleHighlight}</span></h1>
                     <p style={{ color: 'var(--text-secondary)' }}>{t.work.desc}</p>
+
+                    {user ? (
+                        <div style={{
+                            marginTop: '1rem',
+                            padding: '0.5rem 1rem',
+                            background: 'rgba(34, 197, 94, 0.1)',
+                            color: '#4ade80',
+                            borderRadius: '20px',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.5rem',
+                            fontSize: '0.9rem'
+                        }}>
+                            <span>●</span> {t.ticket.loggedIn} {userData?.name || user.email}
+                        </div>
+                    ) : (
+                        <div style={{
+                            marginTop: '1rem',
+                            padding: '0.5rem 1rem',
+                            background: 'rgba(251, 191, 36, 0.1)',
+                            color: '#fbbf24',
+                            borderRadius: '20px',
+                            display: 'inline-flex',
+                            alignItems: 'center',
+                            gap: '0.5rem',
+                            fontSize: '0.9rem'
+                        }}>
+                            <span>●</span> {t.ticket.notLoggedIn}
+                        </div>
+                    )}
                 </div>
 
                 <form onSubmit={handleSubmit} style={{

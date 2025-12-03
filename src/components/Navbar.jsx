@@ -6,10 +6,13 @@ import { useLanguage } from '../context/LanguageContext';
 import '../styles/index.css';
 import logoImg from '../assets/logo.png';
 
+import { useAuth } from '../context/AuthContext';
+
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const location = useLocation();
     const { language, toggleLanguage, t } = useLanguage();
+    const { user } = useAuth();
 
     const links = [
         { name: t.nav.home, path: '/' },
@@ -72,22 +75,34 @@ const Navbar = () => {
                         ))}
                     </ul>
 
-                    <button
-                        onClick={toggleLanguage}
-                        style={{
-                            display: 'flex',
-                            alignItems: 'center',
-                            gap: '0.5rem',
-                            color: 'white',
-                            padding: '0.5rem 1rem',
-                            border: '1px solid rgba(255,255,255,0.1)',
-                            borderRadius: '8px',
-                            cursor: 'pointer'
-                        }}
-                    >
-                        <Globe size={16} />
-                        {language.toUpperCase()}
-                    </button>
+                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                        <button
+                            onClick={toggleLanguage}
+                            style={{
+                                display: 'flex',
+                                alignItems: 'center',
+                                gap: '0.5rem',
+                                color: 'white',
+                                padding: '0.5rem 1rem',
+                                border: '1px solid rgba(255,255,255,0.1)',
+                                borderRadius: '8px',
+                                cursor: 'pointer'
+                            }}
+                        >
+                            <Globe size={16} />
+                            {language.toUpperCase()}
+                        </button>
+
+                        {user ? (
+                            <Link to="/dashboard" className="btn btn-primary" style={{ padding: '0.5rem 1.5rem', fontSize: '0.9rem' }}>
+                                Dashboard
+                            </Link>
+                        ) : (
+                            <Link to="/login" className="btn btn-primary" style={{ padding: '0.5rem 1.5rem', fontSize: '0.9rem' }}>
+                                Sign In
+                            </Link>
+                        )}
+                    </div>
                 </div>
 
                 {/* Mobile Toggle */}
@@ -142,6 +157,27 @@ const Navbar = () => {
                                     </Link>
                                 </li>
                             ))}
+                            <li>
+                                {user ? (
+                                    <Link
+                                        to="/dashboard"
+                                        onClick={() => setIsOpen(false)}
+                                        className="btn btn-primary"
+                                        style={{ width: '100%', textAlign: 'center' }}
+                                    >
+                                        Ir al Dashboard
+                                    </Link>
+                                ) : (
+                                    <Link
+                                        to="/login"
+                                        onClick={() => setIsOpen(false)}
+                                        className="btn btn-primary"
+                                        style={{ width: '100%', textAlign: 'center' }}
+                                    >
+                                        Iniciar Sesión
+                                    </Link>
+                                )}
+                            </li>
                         </ul>
                     </motion.div>
                 )}
