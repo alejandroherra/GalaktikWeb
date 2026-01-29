@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send } from 'lucide-react';
 import emailjs from '@emailjs/browser';
 import Swal from 'sweetalert2';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
@@ -8,28 +7,18 @@ import { db } from '../config/firebase';
 import { useLanguage } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
 import SEO from '../components/SEO';
+import WorkWithUsForm from '../components/WorkWithUsForm';
 
 const WorkWithUs = () => {
     const { t } = useLanguage();
     const { user, userData } = useAuth();
     const [loading, setLoading] = useState(false);
-    const [cv, setCv] = useState('');
-
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        role: 'frontend',
-        experience: '',
-        salary: '',
-        message: ''
-    });
 
     const generateTicketId = () => {
         return 'JOB-' + Math.floor(1000 + Math.random() * 9000);
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async (data) => {
         setLoading(true);
 
         const ticketId = generateTicketId();
@@ -37,8 +26,7 @@ const WorkWithUs = () => {
         try {
             // 1. Save to Firestore
             await setDoc(doc(db, "tickets", ticketId), {
-                ...formData,
-                cv: cv,
+                ...data,
                 status: 'Pending',
                 createdAt: serverTimestamp(),
                 updatedAt: serverTimestamp(),
@@ -51,15 +39,15 @@ const WorkWithUs = () => {
             const publicKey = '9kzLpXGFgejAdL5eq';
 
             const templateParams = {
-                user_name: formData.name,
-                user_email: formData.email,
-                to_email: formData.email,
-                reply_to: formData.email,
-                role: formData.role,
-                experience: formData.experience,
-                salary: formData.salary,
-                message: formData.message,
-                cv: cv,
+                user_name: data.name,
+                user_email: data.email,
+                to_email: data.email,
+                reply_to: data.email,
+                role: data.role,
+                experience: data.experience,
+                salary: data.salary,
+                message: data.message,
+                cv: data.cv,
                 ticket_id: ticketId
             };
 
@@ -90,16 +78,6 @@ const WorkWithUs = () => {
                 width: '500px'
             });
 
-            setFormData({
-                name: '',
-                email: '',
-                role: 'frontend',
-                experience: '',
-                salary: '',
-                message: ''
-            });
-            setCv('');
-
         } catch (error) {
             console.error('Error:', error);
             Swal.fire({
@@ -123,11 +101,11 @@ const WorkWithUs = () => {
             style={{ paddingTop: 'calc(var(--nav-height) + 2rem)', minHeight: '100vh', width: '100%' }}
         >
             <SEO
-                title="Trabaja con Nosotros"
-                description="Únete a nuestro equipo de desarrolladores y diseñadores web. Envía tu CV y forma parte de Galaktik."
-                keywords="empleo diseño web, trabajo desarrollador, unirse equipo, cv desarrollador web"
+                title="Únete al Equipo - Oportunidades 2026"
+                description="Buscamos talento en desarrollo y diseño web. Aplica a nuestras vacantes con nuestro nuevo proceso interactivo."
+                keywords="empleo desarrollo web, trabajo react, vacantes diseño web, galaktik careers"
             />
-            <div className="container" style={{ maxWidth: '600px' }}>
+            <div className="container">
                 <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
                     <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>{t.work.title} <span className="gradient-text">{t.work.titleHighlight}</span></h1>
                     <p style={{ color: 'var(--text-secondary)' }}>{t.work.desc}</p>
@@ -163,159 +141,11 @@ const WorkWithUs = () => {
                     )}
                 </div>
 
-                <form onSubmit={handleSubmit} style={{
-                    background: 'var(--card-bg)',
-                    padding: '2rem',
-                    borderRadius: '16px',
-                    border: '1px solid var(--card-border)'
-                }}>
-                    <div style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>{t.work.name}</label>
-                        <input
-                            type="text"
-                            required
-                            value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            style={{
-                                width: '100%',
-                                padding: '0.75rem',
-                                background: 'rgba(255,255,255,0.05)',
-                                border: '1px solid rgba(255,255,255,0.1)',
-                                borderRadius: '8px',
-                                color: 'white',
-                                outline: 'none'
-                            }}
-                        />
-                    </div>
-
-                    <div style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>{t.work.email}</label>
-                        <input
-                            type="email"
-                            required
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            style={{
-                                width: '100%',
-                                padding: '0.75rem',
-                                background: 'rgba(255,255,255,0.05)',
-                                border: '1px solid rgba(255,255,255,0.1)',
-                                borderRadius: '8px',
-                                color: 'white',
-                                outline: 'none'
-                            }}
-                        />
-                    </div>
-
-                    <div style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>{t.work.role}</label>
-                        <select
-                            value={formData.role}
-                            onChange={(e) => setFormData({ ...formData, role: e.target.value })}
-                            style={{
-                                width: '100%',
-                                padding: '0.75rem',
-                                background: 'rgba(255,255,255,0.05)',
-                                border: '1px solid rgba(255,255,255,0.1)',
-                                borderRadius: '8px',
-                                color: 'white',
-                                outline: 'none',
-                                cursor: 'pointer'
-                            }}
-                        >
-                            <option value="frontend" style={{ background: '#1a1b2e' }}>{t.work.roles.frontend}</option>
-                            <option value="backend" style={{ background: '#1a1b2e' }}>{t.work.roles.backend}</option>
-                            <option value="fullstack" style={{ background: '#1a1b2e' }}>{t.work.roles.fullstack}</option>
-                            <option value="sales" style={{ background: '#1a1b2e' }}>{t.work.roles.sales}</option>
-                        </select>
-                    </div>
-
-                    <div style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>{t.work.experience}</label>
-                        <textarea
-                            rows="3"
-                            required
-                            placeholder={t.work.experiencePlaceholder}
-                            value={formData.experience}
-                            onChange={(e) => setFormData({ ...formData, experience: e.target.value })}
-                            style={{
-                                width: '100%',
-                                padding: '0.75rem',
-                                background: 'rgba(255,255,255,0.05)',
-                                border: '1px solid rgba(255,255,255,0.1)',
-                                borderRadius: '8px',
-                                color: 'white',
-                                outline: 'none',
-                                resize: 'vertical'
-                            }}
-                        />
-                    </div>
-
-                    <div style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>{t.work.salary}</label>
-                        <input
-                            type="text"
-                            required
-                            placeholder={t.work.salaryPlaceholder}
-                            value={formData.salary}
-                            onChange={(e) => setFormData({ ...formData, salary: e.target.value })}
-                            style={{
-                                width: '100%',
-                                padding: '0.75rem',
-                                background: 'rgba(255,255,255,0.05)',
-                                border: '1px solid rgba(255,255,255,0.1)',
-                                borderRadius: '8px',
-                                color: 'white',
-                                outline: 'none'
-                            }}
-                        />
-                    </div>
-
-                    <div style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>{t.work.message}</label>
-                        <textarea
-                            rows="3"
-                            value={formData.message}
-                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                            style={{
-                                width: '100%',
-                                padding: '0.75rem',
-                                background: 'rgba(255,255,255,0.05)',
-                                border: '1px solid rgba(255,255,255,0.1)',
-                                borderRadius: '8px',
-                                color: 'white',
-                                outline: 'none',
-                                resize: 'vertical'
-                            }}
-                        />
-                    </div>
-
-                    <div style={{ marginBottom: '2rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>{t.work.cv}</label>
-                        <input
-                            type="url"
-                            placeholder={t.work.cvPlaceholder}
-                            value={cv}
-                            onChange={(e) => setCv(e.target.value)}
-                            style={{
-                                width: '100%',
-                                padding: '0.75rem',
-                                background: 'rgba(255,255,255,0.05)',
-                                border: '1px solid rgba(255,255,255,0.1)',
-                                borderRadius: '8px',
-                                color: 'white',
-                                outline: 'none'
-                            }}
-                        />
-                    </div>
-
-                    <button type="submit" disabled={loading} className="btn btn-primary" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
-                        <Send size={18} /> {loading ? 'Enviando...' : t.work.submit}
-                    </button>
-                </form>
+                <WorkWithUsForm onSubmit={handleSubmit} loading={loading} t={t} />
             </div>
         </motion.div>
     );
 };
 
 export default WorkWithUs;
+

@@ -110,6 +110,10 @@ export const translations = {
             basicPlan: 'Básico - $149',
             starterPlan: 'Personalizado - $299',
             proPlan: 'Profesional - $1099',
+            anotherService: 'Otro Servicio',
+            aiIntegration: 'Integración IA',
+            maintenance: 'Mantenimiento Mensual - $29.99',
+            upgrade: 'Actualización Tecnológica',
             customQuote: 'Cotización Personalizada',
             details: 'Detalles del Proyecto',
             detailsPlaceholder: 'Cuéntanos sobre tu proyecto...',
@@ -124,7 +128,10 @@ export const translations = {
             loggedIn: 'Iniciado como',
             notLoggedIn: 'No iniciado - El ticket no se vinculará',
             implementation: 'Implementación de Software',
-            websiteUrl: 'URL del Sitio Web (Si aplica)'
+            websiteUrl: 'URL del Sitio Web (Si aplica)',
+            step1Title: 'Elige tu Plan Ideal',
+            step2Title: 'Cuéntanos del Proyecto',
+            step3Title: 'Información de Contacto'
         },
         admin: {
             login: 'Iniciar Sesión',
@@ -160,8 +167,19 @@ export const translations = {
             cv: 'Link al CV (Drive, LinkedIn, etc.)',
             cvPlaceholder: 'https://...',
             submit: 'Enviar Aplicación',
-            submit: 'Enviar Aplicación',
             success: 'Hemos recibido tu solicitud, pronto te contactaremos.',
+            step: 'Paso',
+            of: 'de',
+            completed: 'Completado',
+            roleTitle: '¿Qué rol te interesa?',
+            aboutTitle: 'Cuéntanos sobre ti',
+            expTitle: 'Experiencia y Expectativas',
+            finalTitle: 'Detalles Finales',
+            back: 'Atrás',
+            next: 'Siguiente',
+            moreInfo: '¿Algo más que debamos saber?',
+            namePlaceholder: 'Tu nombre completo',
+            emailPlaceholder: 'tu@email.com',
         },
         faq: {
             title: 'Preguntas',
@@ -178,7 +196,7 @@ export const translations = {
             q5: '¿Qué tan confiable es Galaktik Websites?',
             a5: 'Somos una empresa seria y profesional. Nuestro compromiso es entregar trabajo de calidad y solo cobramos cuando entregamos la página completada. Tu satisfacción es nuestra prioridad.',
             q6: '¿Es un solo pago o hay que seguir pagando?',
-            a6: 'El diseño web es un pago único. Sin embargo, para que tu página esté en línea necesitas comprar un dominio (ej. www.tunegocio.com) que puedes consultar en https://www.godaddy.com/es y un hosting privado que normalmente varía de $14 por mes a $46 por 6 meses dependiendo de la oferta. Sin embargo, también te ofrecemos hosting gratis con tu plan.',
+            a6: 'El diseño web es un pago único. Sin embargo, para que tu página esté en línea necesitas un dominio (ej. www.tunegocio.com) que tiene un costo anual. ¡La buena noticia es que el hosting (alojamiento) es GRATIS con nosotros! Nosotros nos encargamos de mantener tu sitio en línea sin costo mensual de servidor.',
             q7: '¿Cómo planearé mi website o cómo lo diseñaré?',
             a7: 'Todo comienza con una llamada. Nos reunimos contigo para escuchar tus ideas, entender tu visión y presentarte modelos de ejemplo que se ajusten a tus necesidades. Juntos definimos el estilo y la estructura perfecta para tu negocio.',
             q8: '¿Puedo empezar con un plan básico e ir mejorando el website?',
@@ -246,6 +264,18 @@ export const translations = {
                 'Integraciones API'
             ],
             btn: 'Cotizar Implementación'
+        },
+        ai: {
+            title: 'Potencia tu Web con',
+            titleHighlight: 'Inteligencia Artificial',
+            desc: 'Lleva tu negocio al siguiente nivel integrando soluciones de IA que automatizan, analizan y mejoran la experiencia de tus usuarios.',
+            benefits: [
+                'Atención al cliente 24/7 con Chatbots inteligentes',
+                'Personalización de contenido en tiempo real',
+                'Automatización de procesos repetitivos',
+                'Análisis predictivo de datos'
+            ],
+            btn: 'Cotizar Integración IA'
         },
         footer: {
             copyright: 'Galaktik corp todos derechos reservados desde 2021- 2025',
@@ -363,6 +393,10 @@ export const translations = {
             basicPlan: 'Basic - $149',
             starterPlan: 'Custom - $299',
             proPlan: 'Professional - $1099',
+            anotherService: 'Another Service',
+            aiIntegration: 'AI Integration',
+            maintenance: 'Monthly Maintenance - $29.99',
+            upgrade: 'Technology Upgrade',
             customQuote: 'Custom Quote',
             details: 'Project Details',
             detailsPlaceholder: 'Tell us about your project...',
@@ -377,7 +411,10 @@ export const translations = {
             loggedIn: 'Logged in as',
             notLoggedIn: 'Not logged in - Ticket will not be linked to account',
             implementation: 'Software Implementation',
-            websiteUrl: 'Website URL (If applicable)'
+            websiteUrl: 'Website URL (If applicable)',
+            step1Title: 'Choose Your Ideal Plan',
+            step2Title: 'Tell us about the Project',
+            step3Title: 'Contact Information'
         },
         admin: {
             login: 'Login',
@@ -416,7 +453,19 @@ export const translations = {
             successTitle: 'Application Sent!',
             screenshotReminder: '📸 Please take a screenshot of your ID',
             trackReminder: 'You can use this ID to track your application status. Check your Spam folder if you don\'t see the email.',
-            understood: 'Understood'
+            understood: 'Understood',
+            step: 'Step',
+            of: 'of',
+            completed: 'Completed',
+            roleTitle: 'What role are you interested in?',
+            aboutTitle: 'Tell us about yourself',
+            expTitle: 'Experience and Expectations',
+            finalTitle: 'Final Details',
+            back: 'Back',
+            next: 'Next',
+            moreInfo: 'Anything else we should know?',
+            namePlaceholder: 'Your full name',
+            emailPlaceholder: 'you@email.com',
         },
         faq: {
             title: 'Frequently Asked',
@@ -433,7 +482,7 @@ export const translations = {
             q5: 'How reliable is Galaktik Websites?',
             a5: 'We are a serious and professional company. Our commitment is to deliver quality work and we only charge when we deliver the completed page. Your satisfaction is our priority.',
             q6: 'Is it a one-time payment or are there recurring costs?',
-            a6: 'The web design is a one-time payment. However, to keep your site online you need to purchase a domain (e.g. www.yourbusiness.com) which you can check at https://www.godaddy.com and a private hosting that normally varies from $14 per month to $46 for 6 months depending on the offer. However, we also offer you free hosting with your plan.',
+            a6: 'Web design is a one-time payment. However, to keep your site online you need a domain name (e.g. www.yourbusiness.com) which has an annual cost. The good news is that hosting is FREE with us! We take care of keeping your site online with no monthly server cost.',
             q7: 'How will I plan or design my website?',
             a7: 'It all starts with a call. We meet with you to listen to your ideas, understand your vision, and present example models that fit your needs. Together we define the perfect style and structure for your business.',
             q8: 'Can I start with a basic plan and upgrade later?',
@@ -501,6 +550,18 @@ export const translations = {
                 'API Integrations'
             ],
             btn: 'Quote Implementation'
+        },
+        ai: {
+            title: 'Power your Web with',
+            titleHighlight: 'Artificial Intelligence',
+            desc: 'Take your business to the next level by integrating AI solutions that automate, analyze, and improve your user experience.',
+            benefits: [
+                '24/7 Customer Support with Smart Chatbots',
+                'Real-time Content Personalization',
+                'Automation of Repetitive Processes',
+                'Predictive Data Analysis'
+            ],
+            btn: 'Quote AI Integration'
         },
         footer: {
             copyright: 'Galaktik corp all rights reserved since 2021 - 2025',

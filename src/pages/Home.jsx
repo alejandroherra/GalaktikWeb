@@ -3,11 +3,11 @@ import { motion } from 'framer-motion';
 import { Check, Globe, Zap, Shield, Smartphone, TrendingUp, Users, Clock, Award, Wrench, ArrowUpCircle, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
-import manitosImg from '../assets/manitos.jpg';
-import travelsImg from '../assets/travels.jpg';
-import wyndhamImg from '../assets/wyndham.jpg';
+import manitosImg from '../assets/manitos.webp';
+import travelsImg from '../assets/travels.webp';
+import wyndhamImg from '../assets/wyndham.webp';
 import logoImg from '../assets/logo.png';
-import spaceImg from '../assets/space.jpg';
+import spaceImg from '../assets/space.webp';
 import SEO from '../components/SEO';
 
 const Home = () => {
@@ -34,9 +34,9 @@ const Home = () => {
             style={{ paddingTop: 'var(--nav-height)', width: '100%' }}
         >
             <SEO
-                title="Diseño Web Profesional"
-                description="Agencia de diseño y desarrollo web en Costa Rica. Creamos sitios web modernos, rápidos y optimizados para tu negocio desde $149."
-                keywords="diseño web costa rica, desarrollo web, paginas web, ecommerce, seo"
+                title="Desarrollo Web Profesional desde $149 - Soluciones Escalables 2026"
+                description="Agencia de diseño y desarrollo web en Costa Rica. Creamos sitios web modernos, rápidos y optimizados para tu negocio desde $149. Soluciones 2026."
+                keywords="diseño web costa rica, desarrollo web, paginas web, ecommerce, seo, web 2026"
             />
 
             {/* Hero Section */}
@@ -51,10 +51,7 @@ const Home = () => {
                 padding: '5rem 0'
             }}>
                 <div className="container">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
+                    <div
                         style={{
                             marginBottom: '4rem',
                             maxWidth: '1100px',
@@ -70,7 +67,7 @@ const Home = () => {
                             overflow: 'hidden'
                         }}
                     >
-                        {/* Removed expensive infinite animation for mobile performance */}
+                        {/* Static background for performance */}
                         <div
                             style={{
                                 position: 'absolute',
@@ -82,10 +79,7 @@ const Home = () => {
                                 zIndex: 0
                             }}
                         />
-                        <motion.h2
-                            initial={{ opacity: 0, y: -20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 0.5, duration: 0.8 }}
+                        <h2
                             style={{
                                 fontSize: 'clamp(1.5rem, 3vw, 2.5rem)',
                                 marginBottom: '1rem',
@@ -95,9 +89,7 @@ const Home = () => {
                             }}
                         >
                             <span className="gradient-text">{t.hero.whoWeAre}</span>
-                            <motion.span
-                                initial={{ scale: 1 }}
-                                whileHover={{ scale: 1.05 }}
+                            <span
                                 style={{
                                     fontSize: '0.9rem',
                                     background: 'linear-gradient(135deg, #FFD700 0%, #FFA500 100%)',
@@ -112,8 +104,8 @@ const Home = () => {
                                 }}
                             >
                                 ✦ {t.hero.sold}
-                            </motion.span>
-                        </motion.h2>
+                            </span>
+                        </h2>
                         <p style={{
                             fontSize: 'clamp(1rem, 2vw, 1.25rem)',
                             color: '#e0e7ff',
@@ -126,18 +118,13 @@ const Home = () => {
                         }}>
                             <span style={{ color: '#a78bfa' }}>✦</span> {t.hero.teamIntro} <span style={{ color: '#a78bfa' }}>✦</span>
                         </p>
-                    </motion.div>
+                    </div>
 
                     <motion.h2 variants={itemVariants} style={{ textAlign: 'center', fontSize: '2rem', marginBottom: '2rem' }}>
                         {t.features.title} <span className="gradient-text">{t.features.titleHighlight}</span>
                     </motion.h2>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        style={{ textAlign: 'center', marginBottom: '2rem' }}
-                    >
+                    <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
                         <h3 className="gradient-text" style={{
                             fontSize: '1.5rem',
                             fontWeight: 'bold',
@@ -147,7 +134,7 @@ const Home = () => {
                         }}>
                             {t.features.sectionTitle}
                         </h3>
-                    </motion.div>
+                    </div>
 
                     <div className="features-grid">
                         {[
@@ -176,12 +163,12 @@ const Home = () => {
                         ))}
                     </div>
 
-                    <motion.h1 variants={itemVariants} style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', marginBottom: '1.5rem', lineHeight: 1.1 }}>
+                    <h1 style={{ fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', marginBottom: '1.5rem', lineHeight: 1.1 }}>
                         {t.hero.title} <span className="gradient-text">{t.hero.subtitle}</span>
-                    </motion.h1>
-                    <motion.p variants={itemVariants} style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto 2rem' }}>
+                    </h1>
+                    <p style={{ fontSize: '1.2rem', color: 'var(--text-secondary)', maxWidth: '600px', margin: '0 auto 2rem' }}>
                         {t.hero.desc}
-                    </motion.p>
+                    </p>
                     <motion.div variants={itemVariants} style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
                         <Link to="/ticket" className="btn btn-primary">{t.hero.start}</Link>
                         <a href="#pricing" className="btn btn-outline">{t.hero.plans}</a>
@@ -553,6 +540,59 @@ const Home = () => {
                 </div>
             </section>
 
+
+            {/* AI Integration Section */}
+            <section style={{ padding: '5rem 0', width: '100%' }}>
+                <div className="container">
+                    <motion.h2 variants={itemVariants} style={{ textAlign: 'center', fontSize: '2.5rem', marginBottom: '1rem' }}>
+                        {t.ai.title} <span className="gradient-text">{t.ai.titleHighlight}</span>
+                    </motion.h2>
+                    <motion.p variants={itemVariants} style={{ textAlign: 'center', color: 'var(--text-secondary)', maxWidth: '700px', margin: '0 auto 3rem', fontSize: '1.1rem' }}>
+                        {t.ai.desc}
+                    </motion.p>
+
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                        gap: '2rem',
+                        maxWidth: '1000px',
+                        margin: '0 auto'
+                    }}>
+                        <motion.div
+                            variants={itemVariants}
+                            whileHover={{ scale: 1.02 }}
+                            style={{
+                                padding: '2.5rem',
+                                background: 'linear-gradient(145deg, rgba(139, 92, 246, 0.05) 0%, rgba(10, 10, 10, 0) 100%)',
+                                border: '1px solid var(--accent-secondary)',
+                                borderRadius: '24px',
+                                position: 'relative',
+                                gridColumn: '1 / -1'
+                            }}
+                        >
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
+                                <ul style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                    {t.ai.benefits.slice(0, 2).map((item, index) => (
+                                        <li key={index} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                            <Zap size={20} color="#8b5cf6" /> {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <ul style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                    {t.ai.benefits.slice(2, 4).map((item, index) => (
+                                        <li key={index} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                            <Zap size={20} color="#8b5cf6" /> {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+
+                            <Link to="/ticket" className="btn btn-primary" style={{ width: '100%', display: 'block', textAlign: 'center', background: 'linear-gradient(90deg, #8b5cf6 0%, #6366f1 100%)' }}>{t.ai.btn}</Link>
+                        </motion.div>
+                    </div>
+                </div>
+            </section>
+
             {/* Benefits Section */}
             <section style={{ padding: '5rem 0', background: 'var(--bg-secondary)', width: '100%' }}>
                 <div className="container">
@@ -618,6 +658,7 @@ const Home = () => {
                                 marginBottom: '1.5rem',
                                 filter: 'drop-shadow(0 0 10px rgba(99, 102, 241, 0.3))'
                             }}
+                            loading="lazy"
                         />
                         <p style={{
                             color: 'var(--text-secondary)',

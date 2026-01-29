@@ -8,51 +8,60 @@ import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { useLanguage } from '../context/LanguageContext';
 import SEO from '../components/SEO';
-
+import PriceCalculator from '../components/PriceCalculator';
 import { useAuth } from '../context/AuthContext';
 
 const Ticket = () => {
     const { t } = useLanguage();
     const { user, userData } = useAuth();
-    const [searchParams] = useSearchParams();
-    const selectedPlan = searchParams.get('plan') || 'starter';
     const [loading, setLoading] = useState(false);
-
-    const [formData, setFormData] = useState({
-        name: userData?.name || '',
-        phone: '',
-        email: userData?.email || '',
-        plan: selectedPlan,
-        message: '',
-        websiteUrl: ''
-    });
-
-    // Update form data when userData loads
-    useEffect(() => {
-        if (userData) {
-            setFormData(prev => ({
-                ...prev,
-                name: userData.name || prev.name,
-                email: userData.email || prev.email
-            }));
-        }
-    }, [userData]);
 
     const generateTicketId = () => {
         return 'REQ-' + Math.floor(1000 + Math.random() * 9000);
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSubmit = async (data) => {
         setLoading(true);
 
         const ticketId = generateTicketId();
 
+        // Map plan ID to details
+        const planDetails = {
+            basic: { name: 'Básico', price: '$149' },
+            starter: { name: 'Personalizado', price: '$299' },
+            pro: { name: 'Profesional', price: '$1099' },
+            another: { name: 'Otro Servicio', price: 'Cotizar' }
+        };
+
+        const subServiceDetails = {
+            ai: { name: 'Integración IA', price: 'Cotizar' },
+            maintenance: { name: 'Mantenimiento Mensual', price: '$29.99/mes' },
+            upgrade: { name: 'Actualización Tecnológica', price: 'Cotizar' }
+        };
+
+        let selectedPlan = planDetails[data.plan] || { name: data.plan, price: '?' };
+        let planDescription = `${selectedPlan.name} (${selectedPlan.price})`;
+        let estimatedTotal = selectedPlan.price;
+
+        if (data.plan === 'another' && data.subService) {
+            const sub = subServiceDetails[data.subService];
+            if (sub) {
+                planDescription = `${sub.name} (${sub.price})`;
+                estimatedTotal = sub.price;
+            }
+        }
+
         try {
             // 1. Save to Firestore
             await setDoc(doc(db, "tickets", ticketId), {
-                ...formData,
-                userId: user?.uid || null, // Link to user ID
+                name: data.name,
+                email: data.email,
+                phone: data.phone,
+                message: data.details,
+                websiteUrl: data.websiteUrl,
+                plan: planDescription,
+                estimatedTotal: estimatedTotal,
+                userId: user?.uid || null,
                 status: 'Pending',
                 createdAt: serverTimestamp(),
                 updatedAt: serverTimestamp(),
@@ -65,14 +74,14 @@ const Ticket = () => {
             const publicKey = '9kzLpXGFgejAdL5eq';
 
             const templateParams = {
-                user_name: formData.name,
-                user_phone: formData.phone,
-                user_email: formData.email,
-                to_email: formData.email,
-                reply_to: formData.email,
-                plan: formData.plan,
-                message: formData.message,
-                website_url: formData.websiteUrl || 'N/A',
+                user_name: data.name,
+                user_phone: data.phone,
+                user_email: data.email,
+                to_email: data.email,
+                reply_to: data.email,
+                plan: planDescription,
+                message: `Total Estimado: ${estimatedTotal}\n\nDetalles del Proyecto: ${data.details}`,
+                website_url: data.websiteUrl || 'N/A',
                 ticket_id: ticketId
             };
 
@@ -103,15 +112,6 @@ const Ticket = () => {
                 width: '500px'
             });
 
-            setFormData({
-                name: '',
-                phone: '',
-                email: '',
-                plan: selectedPlan,
-                message: '',
-                websiteUrl: ''
-            });
-
         } catch (error) {
             console.error('Error:', error);
             Swal.fire({
@@ -135,13 +135,15 @@ const Ticket = () => {
             style={{ paddingTop: 'calc(var(--nav-height) + 2rem)', minHeight: '100vh', width: '100%' }}
         >
             <SEO
-                title="Solicitar Cotización"
-                description="Solicita una cotización personalizada para tu proyecto web. Ofrecemos planes desde $149 con entrega rápida y diseño profesional."
-                keywords="cotización web, presupuesto web, solicitar diseño web, planes web costa rica"
+                title="Cotizador Interactivo - Precios desde $149"
+                description="Calcula el precio de tu sitio web en tiempo real. Planes desde $149. Diseño web profesional en Costa Rica."
+                keywords="cotizador web, precios paginas web, cuanto cuesta una pagina web, diseño web costa rica"
             />
-            <div className="container" style={{ maxWidth: '600px' }}>
+            <div className="container" style={{ maxWidth: '800px' }}>
                 <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-                    <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>{t.ticket.title} <span className="gradient-text">{t.ticket.titleHighlight}</span></h1>
+                    <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem', lineHeight: 1.1 }}>
+                        {t.ticket.title} <span className="gradient-text">{t.ticket.titleHighlight}</span>
+                    </h1>
                     <p style={{ color: 'var(--text-secondary)' }}>{t.ticket.desc}</p>
 
                     {user ? (
@@ -175,140 +177,7 @@ const Ticket = () => {
                     )}
                 </div>
 
-                <form onSubmit={handleSubmit} style={{
-                    background: 'var(--card-bg)',
-                    padding: '2rem',
-                    borderRadius: '16px',
-                    border: '1px solid var(--card-border)'
-                }}>
-                    <div style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>{t.ticket.name}</label>
-                        <input
-                            type="text"
-                            required
-                            value={formData.name}
-                            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                            style={{
-                                width: '100%',
-                                padding: '0.75rem',
-                                background: 'rgba(255,255,255,0.05)',
-                                border: '1px solid rgba(255,255,255,0.1)',
-                                borderRadius: '8px',
-                                color: 'white',
-                                outline: 'none'
-                            }}
-                        />
-                    </div>
-
-                    <div style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>{t.ticket.phone}</label>
-                        <input
-                            type="tel"
-                            required
-                            value={formData.phone}
-                            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                            style={{
-                                width: '100%',
-                                padding: '0.75rem',
-                                background: 'rgba(255,255,255,0.05)',
-                                border: '1px solid rgba(255,255,255,0.1)',
-                                borderRadius: '8px',
-                                color: 'white',
-                                outline: 'none'
-                            }}
-                        />
-                    </div>
-
-                    <div style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>{t.ticket.email}</label>
-                        <input
-                            type="email"
-                            required
-                            value={formData.email}
-                            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            style={{
-                                width: '100%',
-                                padding: '0.75rem',
-                                background: 'rgba(255,255,255,0.05)',
-                                border: '1px solid rgba(255,255,255,0.1)',
-                                borderRadius: '8px',
-                                color: 'white',
-                                outline: 'none'
-                            }}
-                        />
-                    </div>
-
-                    <div style={{ marginBottom: '1.5rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>{t.ticket.plan}</label>
-                        <select
-                            value={formData.plan}
-                            onChange={(e) => setFormData({ ...formData, plan: e.target.value })}
-                            style={{
-                                width: '100%',
-                                padding: '0.75rem',
-                                background: 'rgba(255,255,255,0.05)',
-                                border: '1px solid rgba(255,255,255,0.1)',
-                                borderRadius: '8px',
-                                color: 'white',
-                                outline: 'none',
-                                cursor: 'pointer'
-                            }}
-                        >
-                            <option value="basic" style={{ background: '#1a1b2e' }}>{t.ticket.basicPlan}</option>
-                            <option value="starter" style={{ background: '#1a1b2e' }}>{t.ticket.starterPlan}</option>
-                            <option value="pro" style={{ background: '#1a1b2e' }}>{t.ticket.proPlan}</option>
-                            <option value="implementation" style={{ background: '#1a1b2e' }}>{t.ticket.implementation}</option>
-                            <option value="maintenance" style={{ background: '#1a1b2e' }}>{t.ticket.maintenance}</option>
-                            <option value="upgrade" style={{ background: '#1a1b2e' }}>{t.ticket.upgrade}</option>
-                        </select>
-                    </div>
-
-                    {/* Conditional Website URL field */}
-                    {(formData.plan === 'implementation' || formData.plan === 'upgrade' || formData.plan === 'maintenance') && (
-                        <div style={{ marginBottom: '1.5rem' }}>
-                            <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>{t.ticket.websiteUrl}</label>
-                            <input
-                                type="url"
-                                value={formData.websiteUrl}
-                                onChange={(e) => setFormData({ ...formData, websiteUrl: e.target.value })}
-                                placeholder="https://example.com"
-                                style={{
-                                    width: '100%',
-                                    padding: '0.75rem',
-                                    background: 'rgba(255,255,255,0.05)',
-                                    border: '1px solid rgba(255,255,255,0.1)',
-                                    borderRadius: '8px',
-                                    color: 'white',
-                                    outline: 'none'
-                                }}
-                            />
-                        </div>
-                    )}
-
-                    <div style={{ marginBottom: '2rem' }}>
-                        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: '500' }}>{t.ticket.details}</label>
-                        <textarea
-                            rows="4"
-                            value={formData.message}
-                            onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                            placeholder={t.ticket.detailsPlaceholder}
-                            style={{
-                                width: '100%',
-                                padding: '0.75rem',
-                                background: 'rgba(255,255,255,0.05)',
-                                border: '1px solid rgba(255,255,255,0.1)',
-                                borderRadius: '8px',
-                                color: 'white',
-                                outline: 'none',
-                                resize: 'vertical'
-                            }}
-                        />
-                    </div>
-
-                    <button type="submit" disabled={loading} className="btn btn-primary" style={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem' }}>
-                        <Send size={18} /> {loading ? 'Enviando...' : t.ticket.send}
-                    </button>
-                </form>
+                <PriceCalculator onSubmit={handleSubmit} loading={loading} t={t} />
             </div>
         </motion.div>
     );

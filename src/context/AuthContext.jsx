@@ -58,45 +58,52 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-            setUser(currentUser);
-            if (currentUser) {
-                // Force Admin Role for Super Admin
-                const isSuperAdmin = currentUser.email?.toLowerCase() === 'alejandrohs@live.com';
+            try {
+                setUser(currentUser);
+                if (currentUser) {
+                    // Force Admin Role for Super Admin
+                    const isSuperAdmin = currentUser.email?.toLowerCase() === 'alejandrohs@live.com';
 
-                // Fetch additional user data from Firestore
-                const docRef = doc(db, "users", currentUser.uid);
-                const docSnap = await getDoc(docRef);
+                    // Fetch additional user data from Firestore
+                    const docRef = doc(db, "users", currentUser.uid);
+                    const docSnap = await getDoc(docRef);
 
-                if (docSnap.exists()) {
-                    const data = docSnap.data();
-                    // If super admin, override role in state (and optionally update DB if needed)
-                    if (isSuperAdmin) {
-                        const updates = {};
-                        if (data.role !== 'admin') updates.role = 'admin';
-                        if (data.name === 'User') updates.name = 'Alejandro (Admin)'; // Auto-fix name
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        // If super admin, override role in state (and optionally update DB if needed)
+                        if (isSuperAdmin) {
+                            const updates = {};
+                            if (data.role !== 'admin') updates.role = 'admin';
+                            if (data.name === 'User') updates.name = 'Alejandro (Admin)'; // Auto-fix name
 
-                        if (Object.keys(updates).length > 0) {
-                            await setDoc(docRef, { ...data, ...updates }, { merge: true });
-                            Object.assign(data, updates);
+                            if (Object.keys(updates).length > 0) {
+                                await setDoc(docRef, { ...data, ...updates }, { merge: true });
+                                Object.assign(data, updates);
+                            }
                         }
+                        setUserData(data);
+                    } else {
+                        // If user exists in Auth but not in Firestore
+                        const initialData = {
+                            email: currentUser.email,
+                            name: currentUser.displayName || 'User',
+                            role: isSuperAdmin ? 'admin' : 'user',
+                            plans: [],
+                            createdAt: new Date()
+                        };
+                        await setDoc(docRef, initialData);
+                        setUserData(initialData);
                     }
-                    setUserData(data);
                 } else {
-                    // If user exists in Auth but not in Firestore
-                    const initialData = {
-                        email: currentUser.email,
-                        name: currentUser.displayName || 'User',
-                        role: isSuperAdmin ? 'admin' : 'user',
-                        plans: [],
-                        createdAt: new Date()
-                    };
-                    await setDoc(docRef, initialData);
-                    setUserData(initialData);
+                    setUserData(null);
                 }
-            } else {
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+                // Fallback: allow app to load even if Firestore fails
                 setUserData(null);
+            } finally {
+                setLoading(false);
             }
-            setLoading(false);
         });
 
         return unsubscribe;
