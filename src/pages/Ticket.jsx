@@ -35,6 +35,7 @@ const Ticket = () => {
 
         const subServiceDetails = {
             ai: { name: 'Integración IA', price: 'Cotizar' },
+            aiAgent: { name: 'Agente de Inteligencia Artificial', price: 'Cotizar' },
             maintenance: { name: 'Mantenimiento Mensual', price: '$29.99/mes' },
             upgrade: { name: 'Actualización Tecnológica', price: 'Cotizar' }
         };

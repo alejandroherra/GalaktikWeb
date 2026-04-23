@@ -10,8 +10,10 @@ import './styles/index.css';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 
-// Lazy load pages for performance
-const Home = lazy(() => import('./pages/Home'));
+// Synchronous import for Home to improve LCP
+import Home from './pages/Home';
+
+// Lazy load other pages for performance
 const Ticket = lazy(() => import('./pages/Ticket'));
 const Social = lazy(() => import('./pages/Social'));
 const WorkWithUs = lazy(() => import('./pages/WorkWithUs'));
@@ -23,6 +25,7 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 const Login = lazy(() => import('./pages/Login'));
 const VerifyEmail = lazy(() => import('./pages/VerifyEmail'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Portfolio = lazy(() => import('./pages/Portfolio'));
 
 // Loading component
 const PageLoader = () => (
@@ -54,7 +57,7 @@ const AnimatedRoutes = () => {
   const location = useLocation();
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence>
       <Routes location={location} key={location.pathname}>
         <Route path="/" element={<Home />} />
         <Route path="/ticket" element={<Ticket />} />
@@ -77,6 +80,8 @@ const AnimatedRoutes = () => {
             <Admin />
           </ProtectedRoute>
         } />
+
+        <Route path="/portfolio" element={<Portfolio />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

@@ -13,7 +13,7 @@ const Support = () => {
             desc: t.support.chat.desc,
             btn: t.support.chat.btn,
             icon: <MessageCircle size={48} />,
-            url: 'https://wa.me/50664355247',
+            url: 'https://wa.me/50664695907',
             color: '#25D366',
             action: 'chat'
         },
@@ -22,7 +22,7 @@ const Support = () => {
             desc: t.support.call.desc,
             btn: t.support.call.btn,
             icon: <Phone size={48} />,
-            url: 'tel:+50664355247',
+            url: 'tel:+50664695907',
             color: '#6366f1',
             action: 'call'
         },

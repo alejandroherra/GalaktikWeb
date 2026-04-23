@@ -112,6 +112,7 @@ export const translations = {
             proPlan: 'Profesional - $1099',
             anotherService: 'Otro Servicio',
             aiIntegration: 'Integración IA',
+            aiAgent: 'Agente de Inteligencia Artificial',
             maintenance: 'Mantenimiento Mensual - $29.99',
             upgrade: 'Actualización Tecnológica',
             customQuote: 'Cotización Personalizada',
@@ -277,6 +278,18 @@ export const translations = {
             ],
             btn: 'Cotizar Integración IA'
         },
+        aiAgent: {
+            title: 'Comprar',
+            titleHighlight: 'Agente de IA',
+            desc: 'Puede automatizar casi todo y ayudarte a ganar tiempo. Es tener un súper empleado trabajando 24/7 en varias o una sola tarea.',
+            benefits: [
+                'Automatización total',
+                'Ahorro masivo de tiempo',
+                'Súper empleado incansable',
+                'Múltiples o una sola tarea'
+            ],
+            btn: 'Cotizar Agente IA'
+        },
         footer: {
             copyright: 'Galaktik corp todos derechos reservados desde 2021- 2025',
             message: 'Innovando el futuro digital, un pixel a la vez.'
@@ -395,6 +408,7 @@ export const translations = {
             proPlan: 'Professional - $1099',
             anotherService: 'Another Service',
             aiIntegration: 'AI Integration',
+            aiAgent: 'Artificial Intelligence Agent',
             maintenance: 'Monthly Maintenance - $29.99',
             upgrade: 'Technology Upgrade',
             customQuote: 'Custom Quote',
@@ -562,6 +576,18 @@ export const translations = {
                 'Predictive Data Analysis'
             ],
             btn: 'Quote AI Integration'
+        },
+        aiAgent: {
+            title: 'Buy an',
+            titleHighlight: 'AI Agent',
+            desc: 'It can automate almost anything and help you save time. It is like having a super employee working 24/7 on multiple or a single task.',
+            benefits: [
+                'Total automation',
+                'Massive time savings',
+                'Tireless super employee',
+                'Multiple or single tasks'
+            ],
+            btn: 'Quote AI Agent'
         },
         footer: {
             copyright: 'Galaktik corp all rights reserved since 2021 - 2025',

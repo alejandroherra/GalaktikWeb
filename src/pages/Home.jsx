@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Check, Globe, Zap, Shield, Smartphone, TrendingUp, Users, Clock, Award, Wrench, ArrowUpCircle, ArrowRight } from 'lucide-react';
+import { Check, Globe, Zap, Shield, Smartphone, TrendingUp, Users, Clock, Award, Wrench, ArrowUpCircle, ArrowRight, Bot } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import manitosImg from '../assets/manitos.webp';
@@ -588,6 +588,58 @@ const Home = () => {
                             </div>
 
                             <Link to="/ticket" className="btn btn-primary" style={{ width: '100%', display: 'block', textAlign: 'center', background: 'linear-gradient(90deg, #8b5cf6 0%, #6366f1 100%)' }}>{t.ai.btn}</Link>
+                        </motion.div>
+                    </div>
+                </div>
+            </section>
+
+            {/* AI Agent Section */}
+            <section style={{ padding: '5rem 0', width: '100%' }}>
+                <div className="container">
+                    <motion.h2 variants={itemVariants} style={{ textAlign: 'center', fontSize: '2.5rem', marginBottom: '1rem' }}>
+                        {t.aiAgent.title} <span className="gradient-text" style={{ background: 'linear-gradient(135deg, #10b981 0%, #3b82f6 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>{t.aiAgent.titleHighlight}</span>
+                    </motion.h2>
+                    <motion.p variants={itemVariants} style={{ textAlign: 'center', color: 'var(--text-secondary)', maxWidth: '750px', margin: '0 auto 3rem', fontSize: '1.1rem' }}>
+                        {t.aiAgent.desc}
+                    </motion.p>
+
+                    <div style={{
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+                        gap: '2rem',
+                        maxWidth: '1000px',
+                        margin: '0 auto'
+                    }}>
+                        <motion.div
+                            variants={itemVariants}
+                            whileHover={{ scale: 1.02 }}
+                            style={{
+                                padding: '2.5rem',
+                                background: 'linear-gradient(145deg, rgba(16, 185, 129, 0.05) 0%, rgba(10, 10, 10, 0) 100%)',
+                                border: '1px solid #10b981',
+                                borderRadius: '24px',
+                                position: 'relative',
+                                gridColumn: '1 / -1'
+                            }}
+                        >
+                            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
+                                <ul style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                    {t.aiAgent.benefits.slice(0, 2).map((item, index) => (
+                                        <li key={index} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                            <Bot size={20} color="#10b981" /> <span style={{ fontWeight: 500 }}>{item}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                                <ul style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                                    {t.aiAgent.benefits.slice(2, 4).map((item, index) => (
+                                        <li key={index} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                                            <Bot size={20} color="#10b981" /> <span style={{ fontWeight: 500 }}>{item}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+
+                            <Link to="/ticket" className="btn btn-primary" style={{ width: '100%', display: 'block', textAlign: 'center', background: 'linear-gradient(90deg, #10b981 0%, #3b82f6 100%)', border: 'none' }}>{t.aiAgent.btn}</Link>
                         </motion.div>
                     </div>
                 </div>

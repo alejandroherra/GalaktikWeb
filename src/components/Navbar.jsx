@@ -24,6 +24,8 @@ const Navbar = () => {
         { name: t.nav.support, path: '/support' },
     ];
 
+    if (location.pathname === '/portfolio') return null;
+
     return (
         <nav style={{
             height: 'var(--nav-height)',

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, ChevronLeft, Send, Globe, Briefcase, ShoppingBag, Check, User, Mail, Phone, Link as LinkIcon, FileText, Plus, Cpu, Wrench, ArrowUpCircle } from 'lucide-react';
+import { ChevronRight, ChevronLeft, Send, Globe, Briefcase, ShoppingBag, Check, User, Mail, Phone, Link as LinkIcon, FileText, Plus, Cpu, Wrench, ArrowUpCircle, Bot } from 'lucide-react';
 
 const PriceCalculator = ({ onSubmit, loading, t }) => {
     const [step, setStep] = useState(1);
@@ -85,6 +85,12 @@ const PriceCalculator = ({ onSubmit, loading, t }) => {
             title: t.ticket.aiIntegration,
             icon: Cpu,
             color: '#3b82f6'
+        },
+        {
+            id: 'aiAgent',
+            title: t.ticket.aiAgent,
+            icon: Bot,
+            color: '#10b981'
         },
         {
             id: 'maintenance',

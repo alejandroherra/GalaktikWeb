@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState, useMemo } from 'react';
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -109,7 +109,7 @@ export const AuthProvider = ({ children }) => {
         return unsubscribe;
     }, []);
 
-    const value = {
+    const value = useMemo(() => ({
         user,
         userData,
         signup,
@@ -118,11 +118,11 @@ export const AuthProvider = ({ children }) => {
         resendVerification,
         resetPassword,
         loading
-    };
+    }), [user, userData, loading]);
 
     return (
         <AuthContext.Provider value={value}>
-            {!loading && children}
+            {children}
         </AuthContext.Provider>
     );
 };
