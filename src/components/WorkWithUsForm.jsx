@@ -104,7 +104,7 @@ const WorkWithUsForm = ({ onSubmit, loading, t }) => {
                                             background: formData.role === role ? 'rgba(99, 102, 241, 0.1)' : 'rgba(255,255,255,0.02)',
                                             cursor: 'pointer',
                                             textAlign: 'center',
-                                            transition: 'all 0.2s'
+                                            transition: 'transform 0.2s ease, border-color 0.2s ease'
                                         }}
                                     >
                                         <Briefcase size={24} style={{ marginBottom: '0.5rem', color: formData.role === role ? '#818cf8' : 'var(--text-secondary)' }} />

@@ -76,7 +76,7 @@ const Social = () => {
                                 gap: '2rem',
                                 textDecoration: 'none',
                                 color: 'white',
-                                transition: 'all 0.3s',
+                                transition: 'transform 0.3s ease, border-color 0.3s ease',
                                 boxShadow: '0 4px 20px rgba(0,0,0,0.2)'
                             }}
                         >

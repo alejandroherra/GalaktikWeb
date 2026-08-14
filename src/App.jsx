@@ -5,15 +5,15 @@ import { HelmetProvider } from 'react-helmet-async';
 import { LanguageProvider } from './context/LanguageContext';
 import Navbar from './components/Navbar';
 import ErrorBoundary from './components/ErrorBoundary';
+import WhatsAppButton from './components/WhatsAppButton';
 import './styles/index.css';
 
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
 
-// Synchronous import for Home to improve LCP
-import Home from './pages/Home';
+const Mainpage = lazy(() => import('./pages/Mainpage'));
 
-// Lazy load other pages for performance
+const Home = lazy(() => import('./pages/Home'));
 const Ticket = lazy(() => import('./pages/Ticket'));
 const Social = lazy(() => import('./pages/Social'));
 const WorkWithUs = lazy(() => import('./pages/WorkWithUs'));
@@ -26,8 +26,11 @@ const Login = lazy(() => import('./pages/Login'));
 const VerifyEmail = lazy(() => import('./pages/VerifyEmail'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 const Portfolio = lazy(() => import('./pages/Portfolio'));
+const Homedos = lazy(() => import('./pages/Homedos'));
+const Cotizar = lazy(() => import('./pages/Cotizar'));
+const SobreNosotros = lazy(() => import('./pages/SobreNosotros'));
+const Contact = lazy(() => import('./pages/Contact'));
 
-// Loading component
 const PageLoader = () => (
   <div style={{
     height: '100vh',
@@ -59,31 +62,41 @@ const AnimatedRoutes = () => {
   return (
     <AnimatePresence>
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<Home />} />
-        <Route path="/ticket" element={<Ticket />} />
-        <Route path="/social" element={<Social />} />
-        <Route path="/faq" element={<FAQ />} />
-        <Route path="/work-with-us" element={<WorkWithUs />} />
-        <Route path="/support" element={<Support />} />
-        <Route path="/track" element={<TrackTicket />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/verify-email" element={<VerifyEmail />} />
+        <Route path="/" element={<Suspense fallback={<PageLoader />}><Mainpage /></Suspense>} />
+        <Route path="/websites" element={<Suspense fallback={<PageLoader />}><Home /></Suspense>} />
+        <Route path="/software-a-medida" element={<Suspense fallback={<PageLoader />}><Homedos /></Suspense>} />
+        <Route path="/software-a-medida/login" element={<Suspense fallback={<PageLoader />}><Login /></Suspense>} />
+        <Route path="/software-a-medida/cotizar" element={<Suspense fallback={<PageLoader />}><Cotizar /></Suspense>} />
+        <Route path="/software-a-medida/track" element={<Suspense fallback={<PageLoader />}><TrackTicket /></Suspense>} />
+        <Route path="/ticket" element={<Suspense fallback={<PageLoader />}><Ticket /></Suspense>} />
+        <Route path="/social" element={<Suspense fallback={<PageLoader />}><Social /></Suspense>} />
+        <Route path="/faq" element={<Suspense fallback={<PageLoader />}><FAQ /></Suspense>} />
+        <Route path="/work-with-us" element={<Suspense fallback={<PageLoader />}><WorkWithUs /></Suspense>} />
+        <Route path="/support" element={<Suspense fallback={<PageLoader />}><Support /></Suspense>} />
+        <Route path="/track" element={<Suspense fallback={<PageLoader />}><TrackTicket /></Suspense>} />
+        <Route path="/login" element={<Suspense fallback={<PageLoader />}><Login /></Suspense>} />
+        <Route path="/verify-email" element={<Suspense fallback={<PageLoader />}><VerifyEmail /></Suspense>} />
 
-        {/* Protected Routes */}
         <Route path="/dashboard" element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
+          <Suspense fallback={<PageLoader />}>
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          </Suspense>
         } />
         <Route path="/admin" element={
-          <ProtectedRoute requireAdmin={true}>
-            <Admin />
-          </ProtectedRoute>
+          <Suspense fallback={<PageLoader />}>
+            <ProtectedRoute requireAdmin={true}>
+              <Admin />
+            </ProtectedRoute>
+          </Suspense>
         } />
 
-        <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/sobre-nosotros" element={<Suspense fallback={<PageLoader />}><SobreNosotros /></Suspense>} />
+        <Route path="/contacto" element={<Suspense fallback={<PageLoader />}><Contact /></Suspense>} />
+        <Route path="/portfolio" element={<Suspense fallback={<PageLoader />}><Portfolio /></Suspense>} />
 
-        <Route path="*" element={<NotFound />} />
+        <Route path="*" element={<Suspense fallback={<PageLoader />}><NotFound /></Suspense>} />
       </Routes>
     </AnimatePresence>
   );
@@ -98,9 +111,8 @@ function App() {
             <Router>
               <div className="app">
                 <Navbar />
-                <Suspense fallback={<PageLoader />}>
-                  <AnimatedRoutes />
-                </Suspense>
+                <AnimatedRoutes />
+                <WhatsAppButton />
               </div>
             </Router>
           </AuthProvider>

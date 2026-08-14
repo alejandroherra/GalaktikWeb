@@ -4,10 +4,14 @@ import { Search, Clock, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 import { doc, getDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { useLanguage } from '../context/LanguageContext';
+import { useLocation } from 'react-router-dom';
+import NavBarTech from "../components/Navbardos.jsx";
 import SEO from '../components/SEO';
 
 const TrackTicket = () => {
     const { t } = useLanguage();
+    const location = useLocation();
+    const isSoftwareSection = location.pathname.startsWith('/software-a-medida');
     const [ticketId, setTicketId] = useState('');
     const [ticketData, setTicketData] = useState(null);
     const [loading, setLoading] = useState(false);
@@ -57,17 +61,19 @@ const TrackTicket = () => {
     };
 
     return (
-        <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            style={{ paddingTop: 'calc(var(--nav-height) + 2rem)', minHeight: '100vh', width: '100%' }}
-        >
-            <SEO
-                title="Rastrear Ticket"
-                description="Rastrea el estado de tu solicitud o ticket. Ingresa tu número de ticket para ver el progreso de tu proyecto."
-                keywords="rastrear ticket, seguimiento proyecto, estado solicitud, tracking"
-            />
+        <>
+            {isSoftwareSection && <NavBarTech />}
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                style={{ paddingTop: isSoftwareSection ? '100px' : 'calc(var(--nav-height) + 2rem)', minHeight: '100vh', width: '100%' }}
+            >
+                <SEO
+                    title={isSoftwareSection ? t.software.trackSeoTitle : "Rastrear Ticket"}
+                    description={isSoftwareSection ? t.software.trackSeoDesc : "Rastrea el estado de tu solicitud o ticket. Ingresa tu número de ticket para ver el progreso de tu proyecto."}
+                    keywords={isSoftwareSection ? t.software.trackSeoKeywords : "rastrear ticket, seguimiento proyecto, estado solicitud, tracking"}
+                />
             <div className="container" style={{ maxWidth: '600px' }}>
                 <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
                     <h1 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>
@@ -166,6 +172,7 @@ const TrackTicket = () => {
                 </div>
             </div>
         </motion.div>
+        </>
     );
 };
 

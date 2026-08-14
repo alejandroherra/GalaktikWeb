@@ -244,7 +244,7 @@ const PriceCalculator = ({ onSubmit, loading, t }) => {
                                                     display: 'flex',
                                                     alignItems: 'center',
                                                     gap: '1rem',
-                                                    transition: 'all 0.2s ease'
+                                                    transition: 'transform 0.2s ease, border-color 0.2s ease'
                                                 }}
                                             >
                                                 <sub.icon size={20} color={sub.color} />
@@ -438,7 +438,7 @@ const PriceCalculator = ({ onSubmit, loading, t }) => {
                             alignItems: 'center',
                             gap: '0.5rem',
                             fontWeight: '600',
-                            transition: 'all 0.3s'
+                            transition: 'transform 0.3s ease'
                         }}
                     >
                         {t.work.next} <ChevronRight size={20} />

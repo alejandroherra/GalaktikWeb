@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Check, Globe, Zap, Shield, Smartphone, TrendingUp, Users, Clock, Award, Wrench, ArrowUpCircle, ArrowRight, Bot } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -12,6 +12,69 @@ import SEO from '../components/SEO';
 
 const Home = () => {
     const { t } = useLanguage();
+
+    const features = useMemo(() => [
+        { icon: <Globe />, title: t.features.global, desc: t.features.globalDesc },
+        { icon: <Smartphone />, title: t.features.responsive, desc: t.features.responsiveDesc },
+        { icon: <Zap />, title: t.features.fast, desc: t.features.fastDesc },
+        { icon: <Shield />, title: t.features.secure, desc: t.features.secureDesc },
+        { icon: <Wrench />, title: t.features.maintenance, desc: t.features.maintenanceDesc },
+        { icon: <ArrowUpCircle />, title: t.features.upgrade, desc: t.features.upgradeDesc }
+    ], [t]);
+
+    const examples = useMemo(() => [
+        {
+            img: manitosImg,
+            title: t.examples.options149,
+            link: 'https://hospedajemanito.com/',
+            label: t.examples.click149
+        },
+        {
+            img: travelsImg,
+            title: t.examples.options299,
+            link: 'https://costaricatravelcr.com/tours-de-un-dia/',
+            label: t.examples.click299
+        },
+        {
+            img: wyndhamImg,
+            title: t.examples.options1099,
+            link: 'https://www.wyndhamhotels.com/es-xl/wyndham-garden/sanjose-costa-rica/wyndham-garden-sanjose-escazu/overview',
+            label: t.examples.click1099
+        }
+    ], [t]);
+
+    const pricingBasicFeatures = useMemo(() => [
+        t.pricing.features.multiPage,
+        t.pricing.features.responsive,
+        t.pricing.features.contact,
+        t.pricing.features.social,
+        t.pricing.features.delivery1
+    ], [t]);
+
+    const pricingStarterFeatures = useMemo(() => [
+        t.pricing.features.multiPage,
+        t.pricing.features.customDesign,
+        t.pricing.features.animations,
+        t.pricing.features.contact,
+        t.pricing.features.social,
+        t.pricing.features.delivery1
+    ], [t]);
+
+    const pricingProFeatures = useMemo(() => [
+        t.pricing.features.multiPage,
+        t.pricing.features.backend,
+        t.pricing.features.database,
+        t.pricing.features.auth,
+        t.pricing.features.animations,
+        t.pricing.features.support
+    ], [t]);
+
+    const benefitsItems = useMemo(() => [
+        { icon: <TrendingUp size={32} />, title: t.benefits.revenue, desc: t.benefits.revenueDesc },
+        { icon: <Users size={32} />, title: t.benefits.reach, desc: t.benefits.reachDesc },
+        { icon: <Clock size={32} />, title: t.benefits.available, desc: t.benefits.availableDesc },
+        { icon: <Award size={32} />, title: t.benefits.credibility, desc: t.benefits.credibilityDesc }
+    ], [t]);
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -137,29 +200,22 @@ const Home = () => {
                     </div>
 
                     <div className="features-grid">
-                        {[
-                            { icon: <Globe />, title: t.features.global, desc: t.features.globalDesc },
-                            { icon: <Smartphone />, title: t.features.responsive, desc: t.features.responsiveDesc },
-                            { icon: <Zap />, title: t.features.fast, desc: t.features.fastDesc },
-                            { icon: <Shield />, title: t.features.secure, desc: t.features.secureDesc },
-                            { icon: <Wrench />, title: t.features.maintenance, desc: t.features.maintenanceDesc },
-                            { icon: <ArrowUpCircle />, title: t.features.upgrade, desc: t.features.upgradeDesc }
-                        ].map((feature, i) => (
-                            <motion.div
+                        {features.map((feature, i) => (
+                            <div
                                 key={i}
-                                variants={itemVariants}
-                                whileHover={{ y: -5 }}
+                                className="feature-card"
                                 style={{
                                     padding: '1.5rem',
                                     background: 'var(--card-bg)',
                                     border: '1px solid var(--card-border)',
-                                    borderRadius: '16px'
+                                    borderRadius: '16px',
+                                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                                 }}
                             >
                                 <div style={{ color: 'var(--accent-primary)', marginBottom: '0.5rem' }}>{feature.icon}</div>
                                 <h3 style={{ marginBottom: '0.25rem', fontSize: '1.1rem' }}>{feature.title}</h3>
                                 <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{feature.desc}</p>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
 
@@ -207,26 +263,7 @@ const Home = () => {
                         maxWidth: '1200px',
                         margin: '0 auto'
                     }}>
-                        {[
-                            {
-                                img: manitosImg,
-                                title: t.examples.options149,
-                                link: 'https://hospedajemanito.com/',
-                                label: t.examples.click149
-                            },
-                            {
-                                img: travelsImg,
-                                title: t.examples.options299,
-                                link: 'https://costaricatravelcr.com/tours-de-un-dia/',
-                                label: t.examples.click299
-                            },
-                            {
-                                img: wyndhamImg,
-                                title: t.examples.options1099,
-                                link: 'https://www.wyndhamhotels.com/es-xl/wyndham-garden/sanjose-costa-rica/wyndham-garden-sanjose-escazu/overview',
-                                label: t.examples.click1099
-                            }
-                        ].map((example, index) => (
+                        {examples.map((example, index) => (
                             <motion.a
                                 key={index}
                                 href={example.link}
@@ -250,17 +287,22 @@ const Home = () => {
                                 }}
                             >
                                 {/* Background Image */}
-                                <div style={{
-                                    position: 'absolute',
-                                    top: 0,
-                                    left: 0,
-                                    right: 0,
-                                    bottom: 0,
-                                    backgroundImage: `url(${example.img})`,
-                                    backgroundSize: example.img === travelsImg ? '120%' : 'cover',
-                                    backgroundPosition: 'center',
-                                    zIndex: 0
-                                }} />
+                                <img
+                                    src={example.img}
+                                    alt={example.title}
+                                    loading="lazy"
+                                    style={{
+                                        position: 'absolute',
+                                        top: 0,
+                                        left: 0,
+                                        width: '100%',
+                                        height: '100%',
+                                        objectFit: example.img === travelsImg ? 'none' : 'cover',
+                                        transform: example.img === travelsImg ? 'scale(1.2)' : 'none',
+                                        transformOrigin: 'center center',
+                                        zIndex: 0
+                                    }}
+                                />
 
                                 {/* Overlay */}
                                 <div style={{
@@ -318,15 +360,15 @@ const Home = () => {
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
                         {/* Basic Plan $149 */}
-                        <motion.div
-                            variants={itemVariants}
-                            whileHover={{ scale: 1.02 }}
+                        <div
+                            className="hover-lift"
                             style={{
                                 padding: '2.5rem',
                                 background: 'var(--card-bg)',
                                 border: '1px solid var(--card-border)',
                                 borderRadius: '24px',
-                                position: 'relative'
+                                position: 'relative',
+                                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                             }}
                         >
                             <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{t.pricing.basic}</h3>
@@ -334,13 +376,7 @@ const Home = () => {
                             <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>{t.pricing.basicDesc}</p>
 
                             <ul style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                                {[
-                                    t.pricing.features.multiPage,
-                                    t.pricing.features.responsive,
-                                    t.pricing.features.contact,
-                                    t.pricing.features.social,
-                                    t.pricing.features.delivery1
-                                ].map(item => (
+                                {pricingBasicFeatures.map(item => (
                                     <li key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                                         <Check size={18} color="#6366f1" /> {item}
                                     </li>
@@ -348,18 +384,18 @@ const Home = () => {
                             </ul>
 
                             <Link to="/ticket?plan=basic" className="btn btn-outline" style={{ width: '100%', display: 'block', textAlign: 'center' }}>{t.pricing.chooseBasic}</Link>
-                        </motion.div>
+                        </div>
 
                         {/* Starter Plan $299 (Custom) */}
-                        <motion.div
-                            variants={itemVariants}
-                            whileHover={{ scale: 1.02 }}
+                        <div
+                            className="hover-lift"
                             style={{
                                 padding: '2.5rem',
                                 background: 'linear-gradient(145deg, rgba(99, 102, 241, 0.1) 0%, rgba(10, 10, 10, 0) 100%)',
                                 border: '1px solid var(--accent-primary)',
                                 borderRadius: '24px',
-                                position: 'relative'
+                                position: 'relative',
+                                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                             }}
                         >
                             <div style={{
@@ -374,14 +410,7 @@ const Home = () => {
                             <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>{t.pricing.starterDesc}</p>
 
                             <ul style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                                {[
-                                    t.pricing.features.multiPage,
-                                    t.pricing.features.customDesign,
-                                    t.pricing.features.animations,
-                                    t.pricing.features.contact,
-                                    t.pricing.features.social,
-                                    t.pricing.features.delivery1
-                                ].map(item => (
+                                {pricingStarterFeatures.map(item => (
                                     <li key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                                         <Check size={18} color="#6366f1" /> {item}
                                     </li>
@@ -389,18 +418,18 @@ const Home = () => {
                             </ul>
 
                             <Link to="/ticket?plan=starter" className="btn btn-primary" style={{ width: '100%', display: 'block', textAlign: 'center' }}>{t.pricing.chooseStarter}</Link>
-                        </motion.div>
+                        </div>
 
                         {/* Pro Plan $1099 */}
-                        <motion.div
-                            variants={itemVariants}
-                            whileHover={{ scale: 1.02 }}
+                        <div
+                            className="hover-lift"
                             style={{
                                 padding: '2.5rem',
                                 background: 'var(--card-bg)',
                                 border: '1px solid var(--card-border)',
                                 borderRadius: '24px',
-                                position: 'relative'
+                                position: 'relative',
+                                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                             }}
                         >
                             <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{t.pricing.pro}</h3>
@@ -408,14 +437,7 @@ const Home = () => {
                             <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>{t.pricing.proDesc}</p>
 
                             <ul style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                                {[
-                                    t.pricing.features.multiPage,
-                                    t.pricing.features.backend,
-                                    t.pricing.features.database,
-                                    t.pricing.features.auth,
-                                    t.pricing.features.animations,
-                                    t.pricing.features.support
-                                ].map(item => (
+                                {pricingProFeatures.map(item => (
                                     <li key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                                         <Check size={18} color="#6366f1" /> {item}
                                     </li>
@@ -423,7 +445,7 @@ const Home = () => {
                             </ul>
 
                             <Link to="/ticket?plan=pro" className="btn btn-outline" style={{ width: '100%', display: 'block', textAlign: 'center' }}>{t.pricing.choosePro}</Link>
-                        </motion.div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -438,9 +460,8 @@ const Home = () => {
                         {t.implementation.desc}
                     </motion.p>
 
-                    <motion.div
-                        variants={itemVariants}
-                        whileHover={{ scale: 1.02 }}
+                    <div
+                        className="hover-lift"
                         style={{
                             maxWidth: '600px',
                             margin: '0 auto',
@@ -448,7 +469,8 @@ const Home = () => {
                             background: 'linear-gradient(145deg, rgba(99, 102, 241, 0.05) 0%, rgba(10, 10, 10, 0) 100%)',
                             border: '1px solid var(--card-border)',
                             borderRadius: '24px',
-                            position: 'relative'
+                            position: 'relative',
+                            transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                         }}
                     >
                         <ul style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -460,7 +482,7 @@ const Home = () => {
                         </ul>
 
                         <Link to="/ticket?plan=implementation" className="btn btn-primary" style={{ width: '100%', display: 'block', textAlign: 'center' }}>{t.implementation.btn}</Link>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
@@ -476,15 +498,15 @@ const Home = () => {
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', maxWidth: '900px', margin: '0 auto' }}>
                         {/* Maintenance Plan */}
-                        <motion.div
-                            variants={itemVariants}
-                            whileHover={{ scale: 1.02 }}
+                        <div
+                            className="hover-lift"
                             style={{
                                 padding: '2.5rem',
                                 background: 'var(--card-bg)',
                                 border: '1px solid var(--card-border)',
                                 borderRadius: '24px',
-                                position: 'relative'
+                                position: 'relative',
+                                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                             }}
                         >
                             <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{t.maintenance.plan.title}</h3>
@@ -503,18 +525,18 @@ const Home = () => {
                             </ul>
 
                             <Link to="/ticket?plan=maintenance" className="btn btn-primary" style={{ width: '100%', display: 'block', textAlign: 'center' }}>{t.maintenance.plan.btn}</Link>
-                        </motion.div>
+                        </div>
 
                         {/* Technology Upgrade */}
-                        <motion.div
-                            variants={itemVariants}
-                            whileHover={{ scale: 1.02 }}
+                        <div
+                            className="hover-lift"
                             style={{
                                 padding: '2.5rem',
                                 background: 'linear-gradient(145deg, rgba(99, 102, 241, 0.05) 0%, rgba(10, 10, 10, 0) 100%)',
                                 border: '1px solid var(--card-border)',
                                 borderRadius: '24px',
-                                position: 'relative'
+                                position: 'relative',
+                                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                             }}
                         >
                             <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>
@@ -535,7 +557,7 @@ const Home = () => {
                             </p>
 
                             <Link to="/ticket?plan=upgrade" className="btn btn-outline" style={{ width: '100%', display: 'block', textAlign: 'center' }}>{t.maintenance.upgrade.btn}</Link>
-                        </motion.div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -558,16 +580,16 @@ const Home = () => {
                         maxWidth: '1000px',
                         margin: '0 auto'
                     }}>
-                        <motion.div
-                            variants={itemVariants}
-                            whileHover={{ scale: 1.02 }}
+                        <div
+                            className="hover-lift"
                             style={{
                                 padding: '2.5rem',
                                 background: 'linear-gradient(145deg, rgba(139, 92, 246, 0.05) 0%, rgba(10, 10, 10, 0) 100%)',
                                 border: '1px solid var(--accent-secondary)',
                                 borderRadius: '24px',
                                 position: 'relative',
-                                gridColumn: '1 / -1'
+                                gridColumn: '1 / -1',
+                                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                             }}
                         >
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
@@ -588,7 +610,7 @@ const Home = () => {
                             </div>
 
                             <Link to="/ticket" className="btn btn-primary" style={{ width: '100%', display: 'block', textAlign: 'center', background: 'linear-gradient(90deg, #8b5cf6 0%, #6366f1 100%)' }}>{t.ai.btn}</Link>
-                        </motion.div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -610,16 +632,16 @@ const Home = () => {
                         maxWidth: '1000px',
                         margin: '0 auto'
                     }}>
-                        <motion.div
-                            variants={itemVariants}
-                            whileHover={{ scale: 1.02 }}
+                        <div
+                            className="hover-lift"
                             style={{
                                 padding: '2.5rem',
                                 background: 'linear-gradient(145deg, rgba(16, 185, 129, 0.05) 0%, rgba(10, 10, 10, 0) 100%)',
                                 border: '1px solid #10b981',
                                 borderRadius: '24px',
                                 position: 'relative',
-                                gridColumn: '1 / -1'
+                                gridColumn: '1 / -1',
+                                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                             }}
                         >
                             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
@@ -640,7 +662,7 @@ const Home = () => {
                             </div>
 
                             <Link to="/ticket" className="btn btn-primary" style={{ width: '100%', display: 'block', textAlign: 'center', background: 'linear-gradient(90deg, #10b981 0%, #3b82f6 100%)', border: 'none' }}>{t.aiAgent.btn}</Link>
-                        </motion.div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -656,22 +678,17 @@ const Home = () => {
                     </motion.p>
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '2rem' }}>
-                        {[
-                            { icon: <TrendingUp size={32} />, title: t.benefits.revenue, desc: t.benefits.revenueDesc },
-                            { icon: <Users size={32} />, title: t.benefits.reach, desc: t.benefits.reachDesc },
-                            { icon: <Clock size={32} />, title: t.benefits.available, desc: t.benefits.availableDesc },
-                            { icon: <Award size={32} />, title: t.benefits.credibility, desc: t.benefits.credibilityDesc }
-                        ].map((benefit, i) => (
-                            <motion.div
+                        {benefitsItems.map((benefit, i) => (
+                            <div
                                 key={i}
-                                variants={itemVariants}
-                                whileHover={{ y: -5 }}
+                                className="hover-lift"
                                 style={{
                                     padding: '2rem',
                                     background: 'var(--card-bg)',
                                     border: '1px solid var(--card-border)',
                                     borderRadius: '16px',
-                                    textAlign: 'center'
+                                    textAlign: 'center',
+                                    transition: 'transform 0.3s ease, box-shadow 0.3s ease',
                                 }}
                             >
                                 <div style={{ color: 'var(--accent-primary)', marginBottom: '1rem', display: 'flex', justifyContent: 'center' }}>
@@ -679,7 +696,7 @@ const Home = () => {
                                 </div>
                                 <h3 style={{ fontSize: '1.3rem', marginBottom: '0.75rem' }}>{benefit.title}</h3>
                                 <p style={{ color: 'var(--text-secondary)', lineHeight: '1.6' }}>{benefit.desc}</p>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -729,6 +746,16 @@ const Home = () => {
                     </motion.div>
                 </div>
             </footer>
+        <style>{`
+          .hover-lift:hover {
+            transform: translateY(-4px) scale(1.02) !important;
+            box-shadow: 0 12px 40px rgba(99, 102, 241, 0.15) !important;
+          }
+          .feature-card:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 8px 30px rgba(99, 102, 241, 0.12) !important;
+          }
+        `}</style>
         </motion.div >
     );
 };
