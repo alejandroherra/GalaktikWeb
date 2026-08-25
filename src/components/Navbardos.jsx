@@ -13,13 +13,14 @@ const NavBarTech = memo(function NavBarTech() {
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   // Cerrar menú al cambiar ruta
   useEffect(() => {
-    setMenuOpen(false);
+    const id = requestAnimationFrame(() => setMenuOpen(false));
+    return () => cancelAnimationFrame(id);
   }, [location.pathname]);
 
   // Bloquear scroll cuando menú mobile está abierto
@@ -36,6 +37,7 @@ const NavBarTech = memo(function NavBarTech() {
     { name: t.software.navInicio, path: "/software-a-medida", hash: "inicio" },
     { name: t.software.navCotizar, path: "/software-a-medida/cotizar" },
     { name: t.software.navRastrear, path: "/software-a-medida/track" },
+    { name: t.nav.socials, path: "/software-a-medida/social" },
     { name: t.software.navContacto, path: "/software-a-medida", hash: "contacto" },
   ];
 

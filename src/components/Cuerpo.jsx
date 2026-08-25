@@ -31,28 +31,7 @@ const MainPage = memo(function MainPage() {
     },
   ], [t]);
 
-  const clients = useMemo(() => [
-    {
-      name: "Mayka",
-      project: t.software.cuerpoClient1Project,
-      color: "#8b5cf6",
-    },
-    {
-      name: "Concentrix CR3",
-      project: t.software.cuerpoClient2Project,
-      color: "#fb923c",
-    },
-    {
-      name: "Mondaisa Escazú",
-      project: t.software.cuerpoClient3Project,
-      color: "#22c55e",
-    },
-    {
-      name: "TELUS Digital",
-      project: t.software.cuerpoClient4Project,
-      color: "#06b6d4",
-    },
-  ], [t]);
+
 
   const strengths = useMemo(() => [
     {
@@ -229,22 +208,7 @@ const MainPage = memo(function MainPage() {
           </p>
         </div>
 
-        <div className="clients-grid">
-          {clients.map((client, index) => (
-            <article
-              key={client.name}
-              className="client-card reveal-card"
-              style={{ animationDelay: `${index * 0.08}s` }}
-            >
-              <div
-                className="client-line"
-                style={{ background: client.color }}
-              />
-              <h3>{client.name}</h3>
-              <p>{client.project}</p>
-            </article>
-          ))}
-        </div>
+
       </section>
 
 

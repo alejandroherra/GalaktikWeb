@@ -5,17 +5,9 @@ import React, {
   useEffect,
   useState,
   useMemo,
+  useCallback,
 } from "react";
-import {
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged,
-  sendEmailVerification,
-  sendPasswordResetEmail,
-} from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
-import { auth, db } from "../config/firebase";
+import { getFirebaseAuth, getFirebaseDb } from "../config/firebase";
 
 const AuthContext = createContext();
 
@@ -26,7 +18,17 @@ export const AuthProvider = ({ children }) => {
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const signup = async (email, password, name) => {
+  const signup = useCallback(async (email, password, name) => {
+    const [
+      { createUserWithEmailAndPassword, sendEmailVerification },
+      { doc, setDoc },
+    ] = await Promise.all([
+      import("firebase/auth"),
+      import("firebase/firestore"),
+    ]);
+
+    const auth = await getFirebaseAuth();
+    const db = await getFirebaseDb();
     const result = await createUserWithEmailAndPassword(auth, email, password);
 
     // Send verification email
@@ -41,80 +43,116 @@ export const AuthProvider = ({ children }) => {
       createdAt: new Date(),
     });
     return result;
-  };
+  }, []);
 
-  const login = async (email, password) => {
+  const login = useCallback(async (email, password) => {
+    const { signInWithEmailAndPassword } = await import("firebase/auth");
+    const auth = await getFirebaseAuth();
     const result = await signInWithEmailAndPassword(auth, email, password);
     return result;
-  };
+  }, []);
 
-  const logout = () => {
+  const logout = useCallback(async () => {
+    const { signOut } = await import("firebase/auth");
+    const auth = await getFirebaseAuth();
     return signOut(auth);
-  };
+  }, []);
 
-  const resendVerification = () => {
+  const resendVerification = useCallback(async () => {
+    const { sendEmailVerification } = await import("firebase/auth");
+    const auth = await getFirebaseAuth();
     if (auth.currentUser) {
       return sendEmailVerification(auth.currentUser);
     }
     return Promise.reject("No user logged in");
-  };
+  }, []);
 
-  const resetPassword = (email) => {
+  const resetPassword = useCallback(async (email) => {
+    const { sendPasswordResetEmail } = await import("firebase/auth");
+    const auth = await getFirebaseAuth();
     return sendPasswordResetEmail(auth, email);
-  };
+  }, []);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+    let unsubscribe = () => {};
+    let isMounted = true;
+
+    const initFirebase = async () => {
       try {
-        setUser(currentUser);
-        if (currentUser) {
-          // Force Admin Role for Super Admin
-          const isSuperAdmin =
-            currentUser.email?.toLowerCase() === "alejandrohs@live.com";
+        const { onAuthStateChanged } = await import("firebase/auth");
+        const { doc, getDoc, setDoc } = await import("firebase/firestore");
+        const auth = await getFirebaseAuth();
+        const db = await getFirebaseDb();
 
-          // Fetch additional user data from Firestore
-          const docRef = doc(db, "users", currentUser.uid);
-          const docSnap = await getDoc(docRef);
+        if (!isMounted) return;
 
-          if (docSnap.exists()) {
-            const data = docSnap.data();
-            // If super admin, override role in state (and optionally update DB if needed)
-            if (isSuperAdmin) {
-              const updates = {};
-              if (data.role !== "admin") updates.role = "admin";
-              if (data.name === "User") updates.name = "Alejandro (Admin)"; // Auto-fix name
+        unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+          try {
+            setUser(currentUser);
+            if (currentUser) {
+              const isSuperAdmin = currentUser.email?.toLowerCase() === "alejandrohs@live.com";
+              const docRef = doc(db, "users", currentUser.uid);
+              const docSnap = await getDoc(docRef);
 
-              if (Object.keys(updates).length > 0) {
-                await setDoc(docRef, { ...data, ...updates }, { merge: true });
-                Object.assign(data, updates);
+              if (docSnap.exists()) {
+                const data = docSnap.data();
+                if (isSuperAdmin) {
+                  const updates = {};
+                  if (data.role !== "admin") updates.role = "admin";
+                  if (data.name === "User") updates.name = "Alejandro (Admin)";
+                  if (Object.keys(updates).length > 0) {
+                    await setDoc(docRef, { ...data, ...updates }, { merge: true });
+                    Object.assign(data, updates);
+                  }
+                }
+                setUserData(data);
+              } else {
+                const initialData = {
+                  email: currentUser.email,
+                  name: currentUser.displayName || "User",
+                  role: isSuperAdmin ? "admin" : "user",
+                  plans: [],
+                  createdAt: new Date(),
+                };
+                await setDoc(docRef, initialData);
+                setUserData(initialData);
               }
+            } else {
+              setUserData(null);
             }
-            setUserData(data);
-          } else {
-            // If user exists in Auth but not in Firestore
-            const initialData = {
-              email: currentUser.email,
-              name: currentUser.displayName || "User",
-              role: isSuperAdmin ? "admin" : "user",
-              plans: [],
-              createdAt: new Date(),
-            };
-            await setDoc(docRef, initialData);
-            setUserData(initialData);
+          } catch (error) {
+            console.error("Error fetching user data:", error);
+            setUserData(null);
+          } finally {
+            setLoading(false);
           }
-        } else {
-          setUserData(null);
-        }
+        });
       } catch (error) {
-        console.error("Error fetching user data:", error);
-        // Fallback: allow app to load even if Firestore fails
-        setUserData(null);
-      } finally {
+        console.error("Error initializing Firebase Auth:", error);
         setLoading(false);
       }
-    });
+    };
 
-    return unsubscribe;
+    // Delay initialization to keep main thread completely free during critical render path
+    const delayInit = () => {
+      if (window.requestIdleCallback) {
+        window.requestIdleCallback(() => initFirebase());
+      } else {
+        setTimeout(initFirebase, 3000);
+      }
+    };
+
+    if (document.readyState === "complete") {
+      delayInit();
+    } else {
+      window.addEventListener("load", delayInit);
+    }
+
+    return () => {
+      isMounted = false;
+      window.removeEventListener("load", delayInit);
+      unsubscribe();
+    };
   }, []);
 
   const value = useMemo(
@@ -128,7 +166,7 @@ export const AuthProvider = ({ children }) => {
       resetPassword,
       loading,
     }),
-    [user, userData, loading],
+    [user, userData, loading, signup, login, logout, resendVerification, resetPassword],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

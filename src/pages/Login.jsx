@@ -244,7 +244,7 @@ const Login = () => {
             e.currentTarget.style.transform = "scale(1)";
           }}
         >
-          < X size={20} strokeWidth={2.5} />
+          <X size={20} strokeWidth={2.5} />
         </button>
         <div style={{ textAlign: "center", marginBottom: "2rem" }}>
           <h1 style={{ fontSize: "2rem", marginBottom: "0.5rem" }}>

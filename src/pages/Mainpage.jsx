@@ -67,8 +67,17 @@ export default function MainPage() {
         {destinations.map((dest, index) => (
           <div
             key={index}
+            role="link"
+            tabIndex={0}
+            aria-label={`${dest.label}: ${dest.sublabel}`}
             className="planet-wrapper"
             onClick={() => navigate(dest.route)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                navigate(dest.route);
+              }
+            }}
           >
             <div className="canvas-container">
               <Suspense
@@ -167,6 +176,12 @@ export default function MainPage() {
           -webkit-user-select: none;
         }
 
+        .planet-wrapper:focus-visible {
+          outline: 2px solid #60a5fa;
+          outline-offset: 4px;
+          border-radius: 16px;
+        }
+
         .planet-info {
           margin-top: 20px;
           text-align: center;
@@ -196,8 +211,8 @@ export default function MainPage() {
 
         .footer-text {
           margin-top: 60px;
-          font-size: 10px;
-          color: rgba(255,255,255,0.3);
+          font-size: 11px;
+          color: rgba(255,255,255,0.65);
           letter-spacing: 0.2em;
           text-transform: uppercase;
         }

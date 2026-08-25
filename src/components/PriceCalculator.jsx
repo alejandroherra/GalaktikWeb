@@ -46,17 +46,9 @@ const PriceCalculator = ({ onSubmit, loading, t }) => {
 
     const plans = [
         {
-            id: 'basic',
-            title: t.pricing.basic,
-            price: '$149',
-            icon: Globe,
-            desc: t.pricing.basicDesc,
-            color: '#6366f1'
-        },
-        {
             id: 'starter',
             title: t.pricing.starter,
-            price: '$299',
+            price: '$300',
             icon: Briefcase,
             desc: t.pricing.starterDesc,
             color: '#8b5cf6'
@@ -64,7 +56,7 @@ const PriceCalculator = ({ onSubmit, loading, t }) => {
         {
             id: 'pro',
             title: t.pricing.pro,
-            price: '$1099',
+            price: '$1000',
             icon: ShoppingBag,
             desc: t.pricing.proDesc,
             color: '#ec4899'

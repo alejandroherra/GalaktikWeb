@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 const styles = {
   position: "fixed",
@@ -19,6 +20,10 @@ const styles = {
 };
 
 export default function WhatsAppButton() {
+  const location = useLocation();
+
+  if (location.pathname === '/') return null;
+
   return (
     <a
       href="https://wa.me/50661458451"

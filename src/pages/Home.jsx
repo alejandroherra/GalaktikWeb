@@ -24,15 +24,9 @@ const Home = () => {
 
     const examples = useMemo(() => [
         {
-            img: manitosImg,
-            title: t.examples.options149,
-            link: 'https://hospedajemanito.com/',
-            label: t.examples.click149
-        },
-        {
             img: travelsImg,
             title: t.examples.options299,
-            link: 'https://costaricatravelcr.com/tours-de-un-dia/',
+            link: 'https://five5startravel.com/',
             label: t.examples.click299
         },
         {
@@ -264,65 +258,19 @@ const Home = () => {
                         margin: '0 auto'
                     }}>
                         {examples.map((example, index) => (
-                            <motion.a
+                            <motion.div
                                 key={index}
-                                href={example.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
                                 initial={{ opacity: 0, y: 20 }}
                                 whileInView={{ opacity: 1, y: 0 }}
                                 viewport={{ once: true }}
-                                whileHover={{ scale: 1.03, brightness: 1.1 }}
                                 transition={{ duration: 0.3 }}
-                                style={{
-                                    position: 'relative',
-                                    height: '400px',
-                                    borderRadius: '24px',
-                                    overflow: 'hidden',
-                                    display: 'flex',
-                                    alignItems: 'flex-end',
-                                    textDecoration: 'none',
-                                    border: '1px solid rgba(255,255,255,0.1)',
-                                    boxShadow: '0 10px 30px rgba(0,0,0,0.3)'
-                                }}
+                                style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}
                             >
-                                {/* Background Image */}
-                                <img
-                                    src={example.img}
-                                    alt={example.title}
-                                    loading="lazy"
-                                    style={{
-                                        position: 'absolute',
-                                        top: 0,
-                                        left: 0,
-                                        width: '100%',
-                                        height: '100%',
-                                        objectFit: example.img === travelsImg ? 'none' : 'cover',
-                                        transform: example.img === travelsImg ? 'scale(1.2)' : 'none',
-                                        transformOrigin: 'center center',
-                                        zIndex: 0
-                                    }}
-                                />
-
-                                {/* Overlay */}
+                                {/* Content placed ABOVE the image */}
                                 <div style={{
-                                    position: 'absolute',
-                                    top: 0,
-                                    left: 0,
-                                    right: 0,
-                                    bottom: 0,
-                                    background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.2) 100%)',
-                                    zIndex: 1,
-                                    transition: 'background 0.3s'
-                                }} />
-
-                                {/* Content */}
-                                <div style={{
-                                    position: 'relative',
-                                    zIndex: 2,
-                                    padding: '2rem',
                                     width: '100%',
-                                    textAlign: 'center'
+                                    textAlign: 'center',
+                                    padding: '0.5rem 0'
                                 }}>
                                     <h3 style={{
                                         fontSize: '1.8rem',
@@ -332,19 +280,72 @@ const Home = () => {
                                     }}>
                                         {example.title}
                                     </h3>
-                                    <p style={{
-                                        color: 'var(--accent-secondary)',
-                                        fontWeight: '600',
-                                        fontSize: '1.1rem',
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        gap: '0.5rem'
-                                    }}>
+                                    <a
+                                        href={example.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        style={{
+                                            color: 'var(--accent-secondary)',
+                                            fontWeight: '600',
+                                            fontSize: '1.1rem',
+                                            display: 'inline-flex',
+                                            alignItems: 'center',
+                                            justifyContent: 'center',
+                                            gap: '0.5rem',
+                                            textDecoration: 'none'
+                                        }}
+                                    >
                                         {example.label} <ArrowRight size={20} />
-                                    </p>
+                                    </a>
                                 </div>
-                            </motion.a>
+
+                                <motion.a
+                                    href={example.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    whileHover={{ scale: 1.03, brightness: 1.1 }}
+                                    style={{
+                                        position: 'relative',
+                                        height: '400px',
+                                        borderRadius: '24px',
+                                        overflow: 'hidden',
+                                        display: 'block',
+                                        textDecoration: 'none',
+                                        border: '1px solid rgba(255,255,255,0.1)',
+                                        boxShadow: '0 10px 30px rgba(0,0,0,0.3)'
+                                    }}
+                                >
+                                    {/* Background Image */}
+                                    <img
+                                        src={example.img}
+                                        alt={example.title}
+                                        loading="lazy"
+                                        style={{
+                                            position: 'absolute',
+                                            top: 0,
+                                            left: 0,
+                                            width: '100%',
+                                            height: '100%',
+                                            objectFit: example.img === travelsImg ? 'none' : 'cover',
+                                            transform: example.img === travelsImg ? 'scale(1.2)' : 'none',
+                                            transformOrigin: 'center center',
+                                            zIndex: 0
+                                        }}
+                                    />
+                                    
+                                    {/* Subtle Overlay to make image look good, but without text */}
+                                    <div style={{
+                                        position: 'absolute',
+                                        top: 0,
+                                        left: 0,
+                                        right: 0,
+                                        bottom: 0,
+                                        background: 'linear-gradient(to top, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 50%, transparent 100%)',
+                                        zIndex: 1,
+                                        transition: 'background 0.3s'
+                                    }} />
+                                </motion.a>
+                            </motion.div>
                         ))}
                     </div>
                 </div>
@@ -359,32 +360,6 @@ const Home = () => {
                     </motion.h2>
 
                     <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
-                        {/* Basic Plan $149 */}
-                        <div
-                            className="hover-lift"
-                            style={{
-                                padding: '2.5rem',
-                                background: 'var(--card-bg)',
-                                border: '1px solid var(--card-border)',
-                                borderRadius: '24px',
-                                position: 'relative',
-                                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                            }}
-                        >
-                            <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{t.pricing.basic}</h3>
-                            <div style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem' }}>$149</div>
-                            <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>{t.pricing.basicDesc}</p>
-
-                            <ul style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                                {pricingBasicFeatures.map(item => (
-                                    <li key={item} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                                        <Check size={18} color="#6366f1" /> {item}
-                                    </li>
-                                ))}
-                            </ul>
-
-                            <Link to="/ticket?plan=basic" className="btn btn-outline" style={{ width: '100%', display: 'block', textAlign: 'center' }}>{t.pricing.chooseBasic}</Link>
-                        </div>
 
                         {/* Starter Plan $299 (Custom) */}
                         <div
@@ -406,7 +381,7 @@ const Home = () => {
                                 {t.pricing.popular}
                             </div>
                             <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{t.pricing.starter}</h3>
-                            <div style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem' }}>$299</div>
+                            <div style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem' }}>$300</div>
                             <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>{t.pricing.starterDesc}</p>
 
                             <ul style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -433,7 +408,7 @@ const Home = () => {
                             }}
                         >
                             <h3 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>{t.pricing.pro}</h3>
-                            <div style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem' }}>$1099</div>
+                            <div style={{ fontSize: '3rem', fontWeight: 'bold', marginBottom: '1rem' }}>$1000</div>
                             <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>{t.pricing.proDesc}</p>
 
                             <ul style={{ marginBottom: '2rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>

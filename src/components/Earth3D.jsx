@@ -1,17 +1,92 @@
-import React, { useRef, Suspense, useState, useMemo, memo } from "react";
-import { Canvas, useFrame, useLoader } from "@react-three/fiber";
-import { TextureLoader, Color } from "three";
+import React, {
+  useRef,
+  Suspense,
+  useState,
+  memo,
+  useEffect,
+} from "react";
+import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
+import { TextureLoader, Color, AdditiveBlending } from "three";
 import EarthDayMap from "../assets/textures/2k_neptune.jpg";
 
 const emissiveColor = new Color("#0a1a3a");
 
-const EarthMesh = memo(function EarthMesh({ hovered }) {
+
+// Renders (and rotates) only while the planet is on screen and the tab is
+// visible. Off-screen = zero GPU / main-thread work.
+function useActive(ref) {
+  const supportsIO = typeof IntersectionObserver !== "undefined";
+  const [inView, setInView] = useState(!supportsIO);
+  const [hidden, setHidden] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    let io = null;
+    if (node && supportsIO) {
+      io = new IntersectionObserver(
+        ([entry]) => setInView(entry.isIntersecting),
+        { rootMargin: "120px 0px", threshold: 0.05 },
+      );
+      io.observe(node);
+    }
+    const onVisibility = () => setHidden(document.hidden);
+    document.addEventListener("visibilitychange", onVisibility);
+    return () => {
+      if (io) io.disconnect();
+      document.removeEventListener("visibilitychange", onVisibility);
+    };
+  }, [ref, supportsIO]);
+
+  return inView && !hidden;
+}
+
+const ParticleField = memo(function ParticleField({ color, pausedRef }) {
+  const ref = useRef();
+
+  useFrame((_, delta) => {
+    if (pausedRef.current || !ref.current) return;
+    ref.current.rotation.y += delta * 0.04;
+    ref.current.rotation.x += delta * 0.012;
+  });
+
+  return (
+    <points ref={ref}>
+      <bufferGeometry>
+        <bufferAttribute attach="attributes-position" args={[PARTICLE_POSITIONS, 3]} />
+      </bufferGeometry>
+      <pointsMaterial
+        size={0.028}
+        color={color}
+        transparent
+        opacity={0.85}
+        depthWrite={false}
+        blending={AdditiveBlending}
+        sizeAttenuation
+      />
+    </points>
+  );
+});
+
+const EarthMesh = memo(function EarthMesh({ hovered, active }) {
   const colorMap = useLoader(TextureLoader, EarthDayMap);
   const earthRef = useRef();
+  const activeRef = useRef(active);
+  const setFrameloop = useThree((s) => s.setFrameloop);
+  const invalidate = useThree((s) => s.invalidate);
 
-  useFrame(() => {
-    if (earthRef.current) {
-      earthRef.current.rotation.y += 0.002;
+  useEffect(() => {
+    activeRef.current = active;
+  }, [active]);
+
+  // Stop the render loop entirely when the planet is not visible.
+  useEffect(() => {
+    setFrameloop(active ? "always" : "never");
+    if (active) invalidate();
+  }, [active, setFrameloop, invalidate]);
+
+  useFrame((_, delta) => {
+    if (activeRef.current && earthRef.current) {
+      earthRef.current.rotation.y += delta * 0.12;
     }
   });
 
@@ -24,7 +99,7 @@ const EarthMesh = memo(function EarthMesh({ hovered }) {
       <ambientLight intensity={0.15} />
 
       <mesh ref={earthRef}>
-        <sphereGeometry args={[1, 48, 24]} />
+        <sphereGeometry args={[1, 32, 16]} />
         <meshStandardMaterial
           map={colorMap}
           emissive={emissiveColor}
@@ -37,6 +112,19 @@ const EarthMesh = memo(function EarthMesh({ hovered }) {
   );
 });
 
+const Scene = memo(function Scene({ hovered, active, glowColor }) {
+  const activeRef = useRef(active);
+  useEffect(() => {
+    activeRef.current = active;
+  }, [active]);
+
+  return (
+    <>
+      <EarthMesh hovered={hovered} active={active} />
+    </>
+  );
+});
+
 export default function Earth3D({
   label,
   sublabel,
@@ -44,9 +132,12 @@ export default function Earth3D({
   glowColor = "#6366f1",
 }) {
   const [hovered, setHovered] = useState(false);
+  const containerRef = useRef(null);
+  const active = useActive(containerRef);
 
   return (
     <div
+      ref={containerRef}
       onClick={onClick}
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
@@ -66,20 +157,25 @@ export default function Earth3D({
     >
       <Canvas
         camera={{ position: [0, 0, 2.8], fov: 45 }}
-        dpr={[1, 1.5]}
+        dpr={[1, 1]}
         style={{
           background: "transparent",
           display: "block",
           width: "100%",
           height: "100%",
         }}
-        gl={{ powerPreference: "high-performance", antialias: false, alpha: true, failIfMajorPerformanceCaveat: false }}
+        gl={{
+          powerPreference: "high-performance",
+          antialias: false,
+          alpha: true,
+          failIfMajorPerformanceCaveat: false,
+        }}
         onCreated={({ gl }) => {
           gl.setClearColor(0x000000, 0);
         }}
       >
         <Suspense fallback={null}>
-          <EarthMesh hovered={hovered} />
+          <Scene hovered={hovered} active={active} glowColor={glowColor} />
         </Suspense>
       </Canvas>
 

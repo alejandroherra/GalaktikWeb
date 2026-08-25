@@ -4,7 +4,7 @@ import { Send } from "lucide-react";
 import emailjs from "@emailjs/browser";
 import Swal from "sweetalert2";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { getFirebaseDb } from "../config/firebase";
 import { useLanguage } from "../context/LanguageContext";
 import SEO from "../components/SEO";
 import PriceCalculator from "../components/PriceCalculator";
@@ -26,9 +26,8 @@ const Ticket = () => {
 
     // Map plan ID to details
     const planDetails = {
-      basic: { name: "Básico", price: "$149" },
-      starter: { name: "Personalizado", price: "$299" },
-      pro: { name: "Profesional", price: "$1099" },
+      starter: { name: "Personalizado", price: "$300" },
+      pro: { name: "Profesional", price: "$1000" },
       another: { name: "Otro Servicio", price: "Cotizar" },
     };
 
@@ -55,6 +54,7 @@ const Ticket = () => {
     }
 
     try {
+      const db = await getFirebaseDb();
       // 1. Save to Firestore
       await setDoc(doc(db, "tickets", ticketId), {
         name: data.name,

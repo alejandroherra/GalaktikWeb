@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Clock, CheckCircle, XCircle, AlertCircle } from 'lucide-react';
 import { doc, getDoc } from 'firebase/firestore';
-import { db } from '../config/firebase';
+import { getFirebaseDb } from '../config/firebase';
 import { useLanguage } from '../context/LanguageContext';
 import { useLocation } from 'react-router-dom';
 import NavBarTech from "../components/Navbardos.jsx";
@@ -26,6 +26,7 @@ const TrackTicket = () => {
         setTicketData(null);
 
         try {
+            const db = await getFirebaseDb();
             const docRef = doc(db, "tickets", ticketId.trim());
             const docSnap = await getDoc(docRef);
 

@@ -16,6 +16,7 @@ const Mainpage = lazy(() => import('./pages/Mainpage'));
 const Home = lazy(() => import('./pages/Home'));
 const Ticket = lazy(() => import('./pages/Ticket'));
 const Social = lazy(() => import('./pages/Social'));
+const Socialdos = lazy(() => import('./pages/Socialdos'));
 const WorkWithUs = lazy(() => import('./pages/WorkWithUs'));
 const FAQ = lazy(() => import('./pages/FAQ'));
 const Support = lazy(() => import('./pages/Support'));
@@ -68,6 +69,7 @@ const AnimatedRoutes = () => {
         <Route path="/software-a-medida/login" element={<Suspense fallback={<PageLoader />}><Login /></Suspense>} />
         <Route path="/software-a-medida/cotizar" element={<Suspense fallback={<PageLoader />}><Cotizar /></Suspense>} />
         <Route path="/software-a-medida/track" element={<Suspense fallback={<PageLoader />}><TrackTicket /></Suspense>} />
+        <Route path="/software-a-medida/social" element={<Suspense fallback={<PageLoader />}><Socialdos /></Suspense>} />
         <Route path="/ticket" element={<Suspense fallback={<PageLoader />}><Ticket /></Suspense>} />
         <Route path="/social" element={<Suspense fallback={<PageLoader />}><Social /></Suspense>} />
         <Route path="/faq" element={<Suspense fallback={<PageLoader />}><FAQ /></Suspense>} />

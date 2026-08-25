@@ -45,9 +45,8 @@ const Support = () => {
       style={{
         paddingTop: "var(--nav-height)",
         minHeight: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
+        display: "block",
+        paddingBottom: "6rem",
         width: "100%",
       }}
     >
@@ -60,7 +59,7 @@ const Support = () => {
         <motion.div
           initial={{ y: -20 }}
           animate={{ y: 0 }}
-          style={{ textAlign: "center", marginBottom: "4rem" }}
+          style={{ textAlign: "center", marginBottom: "4rem", marginTop: "4rem" }}
         >
           <h1 style={{ fontSize: "3rem", marginBottom: "1rem" }}>
             {t.support.title}{" "}
@@ -136,6 +135,69 @@ const Support = () => {
               </div>
             </motion.a>
           ))}
+        </div>
+
+        <div style={{ marginTop: "6rem", maxWidth: "1200px", margin: "6rem auto 0" }}>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))", gap: "4rem", alignItems: "center" }}>
+            <motion.div
+              initial={{ opacity: 0, x: -40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+              viewport={{ once: true, amount: 0.25 }}
+              style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}
+            >
+              <span style={{ 
+                display: "inline-block", padding: "6px 16px", borderRadius: "20px", fontSize: "12px", 
+                fontWeight: "700", textTransform: "uppercase", letterSpacing: "0.08em", 
+                background: "rgba(99,102,241,0.12)", color: "#818cf8", width: "fit-content" 
+              }}>
+                {t.software?.contactSectOficinas || "Oficinas"}
+              </span>
+              <h2 style={{ fontSize: "clamp(1.5rem, 3vw, 2.2rem)", fontWeight: "800", lineHeight: 1.2, color: "#fff" }}>
+                {t.software?.contactOficinasTitle || "Encuéntranos en nuestras oficinas"}
+              </h2>
+              <p style={{ fontSize: "0.95rem", lineHeight: 1.7, color: "var(--text-secondary)" }}>
+                {t.software?.contactOficinasDesc || "Estamos ubicados en el corazón de San José, listos para recibirte."}
+              </p>
+
+              <div style={{ display: "flex", gap: "1rem", alignItems: "flex-start", padding: "1.5rem", background: "rgba(255,255,255,0.03)", borderRadius: "16px", border: "1px solid rgba(255,255,255,0.06)" }}>
+                <div style={{ fontSize: "1.5rem" }}>📍</div>
+                <div>
+                  <strong style={{ color: "#fff", fontSize: "1rem", display: "block", marginBottom: "0.25rem" }}>
+                    {t.software?.contactOficinaNombre || "Plaza Atlantis Escazú, San José"}
+                  </strong>
+                  <p style={{ color: "var(--text-secondary)", fontSize: "0.9rem", margin: 0 }}>
+                    {t.software?.contactOficinaDireccion || "San Rafael de Escazú, Costa Rica"}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+              viewport={{ once: true, amount: 0.25 }}
+              style={{
+                width: '100%',
+                height: '400px',
+                borderRadius: '24px',
+                overflow: 'hidden',
+                border: '1px solid rgba(255,255,255,0.1)',
+                boxShadow: '0 20px 40px rgba(0,0,0,0.2)'
+              }}
+            >
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.075778353205!2d-84.1336244!3d9.9276471!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0fd00750d48a7%3A0x4f405bd90817300d!2sGalaktik%20Corp!5e0!3m2!1ses!2scr!4v1787618219312!5m2!1ses!2scr" 
+                width="100%" 
+                height="100%" 
+                style={{ border: 0 }} 
+                allowFullScreen="" 
+                loading="lazy" 
+                referrerPolicy="strict-origin-when-cross-origin"
+              ></iframe>
+            </motion.div>
+          </div>
         </div>
       </div>
     </motion.div>

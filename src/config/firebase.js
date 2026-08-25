@@ -1,7 +1,3 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
-
 const firebaseConfig = {
     apiKey: "AIzaSyDwYvwj5_ZKmf1PmHA221npnFrAHt-UqpE",
     authDomain: "galaktik-20f9f.firebaseapp.com",
@@ -12,9 +8,42 @@ const firebaseConfig = {
     measurementId: "G-JE29TZNQFS"
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
+let _appPromise = null;
+let _db = null;
+let _auth = null;
 
-export { db, auth };
+// Eager module is avoided on purpose: firebase/* must stay OUT of the
+// entry chunk so pages load zero firebase code until it is really needed.
+export function getFirebaseApp() {
+    if (!_appPromise) {
+        _appPromise = import("firebase/app").then(
+            ({ initializeApp, getApps }) => {
+                const existing = getApps();
+                return existing.length ? existing[0] : initializeApp(firebaseConfig);
+            }
+        );
+    }
+    return _appPromise;
+}
+
+export async function getFirebaseDb() {
+    if (!_db) {
+        const [{ getFirestore }, app] = await Promise.all([
+            import("firebase/firestore"),
+            getFirebaseApp(),
+        ]);
+        _db = getFirestore(app);
+    }
+    return _db;
+}
+
+export async function getFirebaseAuth() {
+    if (!_auth) {
+        const [{ getAuth }, app] = await Promise.all([
+            import("firebase/auth"),
+            getFirebaseApp(),
+        ]);
+        _auth = getAuth(app);
+    }
+    return _auth;
+}

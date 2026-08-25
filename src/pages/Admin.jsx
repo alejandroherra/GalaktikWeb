@@ -15,7 +15,7 @@ import {
   where,
   getDocs,
 } from "firebase/firestore";
-import { auth, db } from "../config/firebase";
+import { getFirebaseAuth, getFirebaseDb } from "../config/firebase";
 import { useLanguage } from "../context/LanguageContext";
 import { LogOut, Save, Search, Lock } from "lucide-react";
 import SEO from "../components/SEO";
@@ -37,7 +37,8 @@ const Admin = () => {
   const [newPlanName, setNewPlanName] = useState("");
   const [newPlanExpiry, setNewPlanExpiry] = useState("");
 
-  const fetchTickets = () => {
+  const fetchTickets = async () => {
+    const db = await getFirebaseDb();
     const q = query(collection(db, "tickets"), orderBy("createdAt", "desc"));
     const unsubscribe = onSnapshot(q, (querySnapshot) => {
       const ticketsData = [];
@@ -51,13 +52,16 @@ const Admin = () => {
   };
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      if (currentUser) {
-        fetchTickets();
-      } else {
-        setLoading(false);
-      }
+    let unsubscribe = () => {};
+    getFirebaseAuth().then((auth) => {
+      unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+        setUser(currentUser);
+        if (currentUser) {
+          fetchTickets();
+        } else {
+          setLoading(false);
+        }
+      });
     });
     return () => unsubscribe();
   }, []);
@@ -66,6 +70,7 @@ const Admin = () => {
     e.preventDefault();
     setError("");
     try {
+      const auth = await getFirebaseAuth();
       await signInWithEmailAndPassword(auth, email, password);
     } catch (err) {
       console.error("Login error:", err);
@@ -75,6 +80,7 @@ const Admin = () => {
 
   const handleLogout = async () => {
     try {
+      const auth = await getFirebaseAuth();
       await signOut(auth);
     } catch (err) {
       console.error("Logout error:", err);
@@ -83,6 +89,7 @@ const Admin = () => {
 
   const updateStatus = async (ticketId, newStatus) => {
     try {
+      const db = await getFirebaseDb();
       const ticketRef = doc(db, "tickets", ticketId);
       await updateDoc(ticketRef, {
         status: newStatus,
@@ -99,6 +106,7 @@ const Admin = () => {
     setUserSearchError("");
     setFoundUser(null);
     try {
+      const db = await getFirebaseDb();
       const q = query(
         collection(db, "users"),
         where("email", "==", searchEmail),
@@ -119,6 +127,7 @@ const Admin = () => {
   const toggleAdminRole = async () => {
     if (!foundUser) return;
     try {
+      const db = await getFirebaseDb();
       const userRef = doc(db, "users", foundUser.id);
       const newRole = foundUser.role === "admin" ? "user" : "admin";
       await updateDoc(userRef, { role: newRole });
@@ -133,6 +142,7 @@ const Admin = () => {
   const addUserPlan = async () => {
     if (!foundUser || !newPlanName) return;
     try {
+      const db = await getFirebaseDb();
       const userRef = doc(db, "users", foundUser.id);
       const newPlan = {
         name: newPlanName,

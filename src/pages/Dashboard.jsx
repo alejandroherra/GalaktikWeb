@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useAuth } from "../context/AuthContext";
-import { db } from "../config/firebase";
+import { getFirebaseDb } from "../config/firebase";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { LogOut, Package, Ticket, Plus } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -20,6 +20,7 @@ const Dashboard = () => {
       const ticketsMap = new Map();
 
       try {
+        const db = await getFirebaseDb();
         // 1. Query by User ID (for new tickets)
         if (user?.uid) {
           try {

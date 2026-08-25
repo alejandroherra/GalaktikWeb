@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Instagram, Linkedin, MessageCircle } from 'lucide-react';
+import { Instagram, Linkedin, MessageCircle, Facebook } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import SEO from '../components/SEO';
 
@@ -18,7 +18,9 @@ const Social = () => {
             ),
             url: 'https://www.tiktok.com/@galaktikweb',
             color: '#ffffff'
-        }
+        },
+        { name: 'LinkedIn', icon: <Linkedin size={48} />, url: 'https://uk.linkedin.com/company/galaktikcorp', color: '#0077b5' },
+        { name: 'Facebook', icon: <Facebook size={48} />, url: 'https://www.facebook.com/profile.php?id=61584513333304', color: '#1877f2' }
     ];
 
     return (

@@ -4,7 +4,7 @@ import NavBarTech from "../components/Navbardos.jsx";
 import emailjs from "@emailjs/browser";
 import Swal from "sweetalert2";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { getFirebaseDb } from "../config/firebase";
 import { useLanguage } from "../context/LanguageContext";
 
 const fadeUp = {
@@ -55,6 +55,7 @@ export default function Cotizar() {
     const ticketId = generateTicketId();
 
     try {
+      const db = await getFirebaseDb();
       await setDoc(doc(db, "cotizaciones", ticketId), {
         ...formData,
         status: "Pending",
@@ -96,7 +97,7 @@ export default function Cotizar() {
       });
 
       setFormData({ name: "", empresa: "", email: "", phone: "", project: "", budget: "", deadline: "" });
-    } catch (err) {
+    } catch {
       Swal.fire({
         title: "❌ Error",
         text: t.software.cotizarAlertError,

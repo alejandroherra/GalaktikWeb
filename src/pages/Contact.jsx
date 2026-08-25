@@ -262,7 +262,7 @@ const officeSection = {
 
 const officeGrid = {
   display: "grid",
-  gridTemplateColumns: "1fr",
+  gridTemplateColumns: "1fr 1fr",
   gap: "60px",
   alignItems: "center",
 };
@@ -552,6 +552,30 @@ export default function Contacto() {
                 </div>
               </motion.div>
 
+              <motion.div
+                initial={{ opacity: 0, x: 40 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+                viewport={{ once: true, amount: 0.25 }}
+                style={{
+                  width: '100%',
+                  height: '450px',
+                  borderRadius: '24px',
+                  overflow: 'hidden',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.2)'
+                }}
+              >
+                <iframe 
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3930.075778353205!2d-84.1336244!3d9.9276471!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8fa0fd00750d48a7%3A0x4f405bd90817300d!2sGalaktik%20Corp!5e0!3m2!1ses!2scr!4v1787618219312!5m2!1ses!2scr" 
+                  width="100%" 
+                  height="100%" 
+                  style={{ border: 0 }} 
+                  allowFullScreen="" 
+                  loading="lazy" 
+                  referrerPolicy="strict-origin-when-cross-origin"
+                ></iframe>
+              </motion.div>
             </div>
           </div>
         </section>

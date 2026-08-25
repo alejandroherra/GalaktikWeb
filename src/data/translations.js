@@ -60,11 +60,11 @@ export const translations = {
       title: "Ejemplos de",
       titleHighlight: "Websites",
       click149: "Click para ver opción de $149",
-      click299: "Click para ver opción de $299",
-      click1099: "Click para ver opción de $1099",
+      click299: "Click para ver opción de $300",
+      click1099: "Click para ver opción de $1000",
       options149: "Opción de $149",
-      options299: "Opción de $299",
-      options1099: "Opción de $1099",
+      options299: "Opción de $300",
+      options1099: "Opción de $1000",
     },
     pricing: {
       title: "Elige Tu",
@@ -119,8 +119,8 @@ export const translations = {
       email: "Correo Electrónico",
       plan: "Seleccionar Plan",
       basicPlan: "Básico - $149",
-      starterPlan: "Personalizado - $299",
-      proPlan: "Profesional - $1099",
+      starterPlan: "Personalizado - $300",
+      proPlan: "Profesional - $1000",
       anotherService: "Otro Servicio",
       aiIntegration: "Integración IA",
       aiAgent: "Agente de Inteligencia Artificial",
@@ -459,7 +459,7 @@ export const translations = {
       cuerpoSectClientes: "Clientes",
       cuerpoClientesTitle: "Empresas que han confiado en nosotros",
       cuerpoClientesDesc:
-        "Desarrollamos soluciones reales para compañías que necesitaban optimizar procesos, automatizar tareas y crecer con tecnología.",
+        "Hemos trabajado con compañías de USA, UK, Costa Rica y Rusia ya por varios años en software a medida para empresas pequeñas, medianas y grandes.",
       cuerpoClient1Project:
         "Implementamos un CRM, un sistema de inventarios y su sitio web corporativo, creando un ecosistema digital integral para su operación.",
       cuerpoClient2Project:
@@ -588,11 +588,11 @@ export const translations = {
       title: "Website",
       titleHighlight: "Examples",
       click149: "Click to view $149 option",
-      click299: "Click to view $299 option",
-      click1099: "Click to view $1099 option",
+      click299: "Click to view $300 option",
+      click1099: "Click to view $1000 option",
       options149: "$149 Option",
-      options299: "$299 Option",
-      options1099: "$1099 Option",
+      options299: "$300 Option",
+      options1099: "$1000 Option",
     },
     pricing: {
       title: "Choose Your",
@@ -647,8 +647,8 @@ export const translations = {
       email: "Email Address",
       plan: "Select Plan",
       basicPlan: "Basic - $149",
-      starterPlan: "Custom - $299",
-      proPlan: "Professional - $1099",
+      starterPlan: "Custom - $300",
+      proPlan: "Professional - $1000",
       anotherService: "Another Service",
       aiIntegration: "AI Integration",
       aiAgent: "Artificial Intelligence Agent",
@@ -994,7 +994,7 @@ export const translations = {
       cuerpoSectClientes: "Clients",
       cuerpoClientesTitle: "Companies that have trusted us",
       cuerpoClientesDesc:
-        "We develop real solutions for companies that needed to optimize processes, automate tasks and grow with technology.",
+        "We have worked with companies from the USA, UK, Costa Rica, and Russia for several years in custom software for small, medium, and large businesses.",
       cuerpoClient1Project:
         "We implemented a CRM, an inventory system and their corporate website, creating a comprehensive digital ecosystem for their operation.",
       cuerpoClient2Project:

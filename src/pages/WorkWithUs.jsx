@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import emailjs from '@emailjs/browser';
 import Swal from 'sweetalert2';
 import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
-import { db } from '../config/firebase';
+import { getFirebaseDb } from '../config/firebase';
 import { useLanguage } from '../context/LanguageContext';
 import { useAuth } from '../context/AuthContext';
 import SEO from '../components/SEO';
@@ -24,6 +24,7 @@ const WorkWithUs = () => {
         const ticketId = generateTicketId();
 
         try {
+            const db = await getFirebaseDb();
             // 1. Save to Firestore
             await setDoc(doc(db, "tickets", ticketId), {
                 ...data,

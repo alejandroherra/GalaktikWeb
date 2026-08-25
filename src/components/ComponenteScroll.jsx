@@ -114,6 +114,6 @@ const LogoCard = memo(({ logo }) => {
       />
     </div>
   );
-};
+});
 
 export default ComponenteScroll;
