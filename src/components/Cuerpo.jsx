@@ -188,12 +188,12 @@ const MainPage = memo(function MainPage() {
           </article>
 
           <article className="stat-card">
-            <strong>5 años</strong>
+            <strong>{t.software.cuerpoStat2Value}</strong>
             <span>{t.software.cuerpoStat2Label}</span>
           </article>
 
           <article className="stat-card">
-            <strong>10 expertos</strong>
+            <strong>{t.software.cuerpoStat3Value}</strong>
             <span>{t.software.cuerpoStat3Label}</span>
           </article>
         </div>

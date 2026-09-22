@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet-async';
 
 const SEO = memo(({ title, description, keywords, canonical, lang = 'es' }) => {
     const fullTitle = `${title} | Galaktik`;
-    const siteUrl = 'https://galaktikwebsites.com';
+    const siteUrl = 'https://galaktikweb.com';
     const canonicalUrl = canonical ? `${siteUrl}${canonical}` : undefined;
 
     return (

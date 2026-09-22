@@ -1,6 +1,6 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { memo, useState, useEffect, useCallback } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useLanguage } from "../context/LanguageContext";
 import { useAuth } from "../context/AuthContext";
 
@@ -259,85 +259,90 @@ const NavBarTech = memo(function NavBarTech() {
       </nav>
 
       {/* Mobile Menu */}
-      {menuOpen && (
-        <div
-          style={{
-            position: "fixed",
-            top: scrolled ? "68px" : "84px",
-            left: 0,
-            right: 0,
-            bottom: 0,
-            backgroundColor: "rgba(3, 7, 18, 0.98)",
-            zIndex: 1001,
-            overflowY: "auto",
-            pointerEvents: "auto",
-          }}
-        >
-          <div
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
             style={{
-              padding: "20px 24px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "8px",
+              position: "fixed",
+              top: scrolled ? "68px" : "84px",
+              left: 0,
+              right: 0,
+              bottom: 0,
+              backgroundColor: "rgba(3, 7, 18, 0.98)",
+              zIndex: 1001,
+              overflowY: "auto",
+              pointerEvents: "auto",
             }}
           >
-            {navLinks.map((link, i) => (
-              <button
-                key={i}
-                type="button"
-                onClick={() => handleNavClick(link)}
+            <div
+              style={{
+                padding: "20px 24px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "8px",
+              }}
+            >
+              {navLinks.map((link, i) => (
+                <button
+                  key={i}
+                  type="button"
+                  onClick={() => handleNavClick(link)}
+                  style={{
+                    display: "block",
+                    width: "100%",
+                    textAlign: "left",
+                    color: isActive(link) ? "#ffffff" : "#9ca3af",
+                    fontSize: "16px",
+                    fontWeight: "600",
+                    padding: "14px 16px",
+                    borderRadius: "12px",
+                    background: isActive(link)
+                      ? "rgba(255,255,255,0.08)"
+                      : "transparent",
+                    cursor: "pointer",
+                    border: "none",
+                  }}
+                >
+                  {link.name}
+                </button>
+              ))}
+
+              <div
+                style={{
+                  height: "1px",
+                  background: "rgba(255,255,255,0.1)",
+                  margin: "8px 0",
+                  pointerEvents: "none",
+                }}
+              />
+
+              <Link
+                to={authPath}
+                onClick={() => setMenuOpen(false)}
                 style={{
                   display: "block",
                   width: "100%",
-                  textAlign: "left",
-                  color: isActive(link) ? "#ffffff" : "#9ca3af",
-                  fontSize: "16px",
+                  textAlign: "center",
+                  color: "#ffffff",
+                  fontSize: "15px",
                   fontWeight: "600",
-                  padding: "14px 16px",
-                  borderRadius: "12px",
-                  background: isActive(link)
-                    ? "rgba(255,255,255,0.08)"
-                    : "transparent",
-                  cursor: "pointer",
-                  border: "none",
+                  padding: "12px 16px",
+                  borderRadius: "10px",
+                  background: "rgba(255,255,255,0.08)",
+                  border: "1px solid rgba(255,255,255,0.15)",
+                  textDecoration: "none",
+                  marginTop: "16px"
                 }}
               >
-                {link.name}
-              </button>
-            ))}
-
-            <div
-              style={{
-                height: "1px",
-                background: "rgba(255,255,255,0.1)",
-                margin: "8px 0",
-                pointerEvents: "none",
-              }}
-            />
-
-            <Link
-              to={authPath}
-              onClick={() => setMenuOpen(false)}
-              style={{
-                display: "block",
-                width: "100%",
-                textAlign: "center",
-                color: "#ffffff",
-                fontSize: "15px",
-                fontWeight: "600",
-                padding: "12px 16px",
-                borderRadius: "10px",
-                background: "rgba(255,255,255,0.08)",
-                border: "1px solid rgba(255,255,255,0.15)",
-                textDecoration: "none",
-                marginTop: "16px"
-              }}
-            >
-              {authLabel}
-            </Link>
-          </div>
-        </div>
-      )}
+                {authLabel}
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <style>{`
         @media (max-width: 768px) {

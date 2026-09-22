@@ -10,6 +10,7 @@ export default function MainPage() {
   const navigate = useNavigate();
   const { t } = useLanguage();
 
+
   useEffect(() => {
     const origWarn = console.warn;
     const origError = console.error;
@@ -30,6 +31,7 @@ export default function MainPage() {
       console.error = origError;
     };
   }, []);
+
 
   const destinations = useMemo(
     () => [

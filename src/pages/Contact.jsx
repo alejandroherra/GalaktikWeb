@@ -430,7 +430,7 @@ export default function Contacto() {
                   transition={{ delay: 0.58, duration: 0.7 }}
                   style={heroButtons}
                 >
-                  <a href="mailto:galaktikdev@gmail.com" style={primaryBtn}>
+                  <a href="https://wa.me/50661458451" target="_blank" rel="noreferrer" style={primaryBtn}>
                     {t.software.contactBtnEscribir}
                   </a>
                   <a href="tel:+50661458451" style={secondaryBtn}>

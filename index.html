@@ -1,142 +1,160 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-  <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="/src/assets/logo.png" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Basic SEO -->
+    <title>Custom Web Development & Software Solutions | Galaktik Corp</title>
+    <meta
+      name="description"
+      content="Galaktik Corp builds modern websites, eCommerce stores, and custom software solutions for businesses in Costa Rica and international markets."
+    />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Galaktik Corp" />
+    <link rel="canonical" href="https://galaktikweb.com/" />
 
-  <!-- SEO Meta Tags -->
-  <title> Modern Website And Software Development | Galaktik Corp </title>
-  <meta name="description"
-    content="Diseño y desarrollo de páginas web y software a medida por Galaktik. Empresa liderada por Victor Alejandro Herra Solis en Costa Rica, con operaciones en Rusia y Reino Unido. Soluciones desde $149." />
-  <meta name="keywords"
-    content="Victor Alejandro Herra Solis, Alejandro Herra, páginas web costa rica, diseño web costa rica, desarrollo web, sitios web profesionales, software a medida, desarrollo de software rusia, desarrollo web reino unido, agencia web costa rica, Galaktik, GalaktikWeb" />
-  <meta name="author" content="Victor Alejandro Herra Solis" />
-  <meta name="robots" content="index, follow" />
-  <meta name="language" content="Spanish" />
-  <meta name="revisit-after" content="7 days" />
-  <meta name="distribution" content="global" />
-  <meta name="rating" content="general" />
-  <link rel="canonical" href="https://galaktikwebsites.com/" />
+    <!-- Theme -->
+    <meta name="theme-color" content="#0f172a" />
 
-  <!-- Geo Tags -->
-  <meta name="geo.region" content="CR" />
-  <meta name="geo.placename" content="Costa Rica, Rusia, Reino Unido" />
-  <meta name="geo.position" content="9.748917;-83.753428" />
-  <meta name="ICBM" content="9.748917, -83.753428" />
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
 
-  <!-- Open Graph / Facebook -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://galaktikwebsites.com/" />
-  <meta property="og:title" content="Desarrollo Web Profesional desde $149 - Soluciones Escalables 2026" />
-  <meta property="og:description"
-    content="Diseño y desarrollo de páginas web profesionales por Galaktik (Victor Alejandro Herra Solis). Costa Rica, Rusia y Reino Unido." />
-  <meta property="og:site_name" content="Galaktik Websites by Victor Alejandro Herra Solis" />
-  <meta property="og:locale" content="es_CR" />
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://galaktikweb.com/" />
+    <meta
+      property="og:title"
+      content="Custom Web Development & Software Solutions | Galaktik Corp"
+    />
+    <meta
+      property="og:description"
+      content="We build modern websites, eCommerce platforms, and custom software solutions for companies ready to grow with technology."
+    />
+    <meta property="og:site_name" content="Galaktik Corp" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://galaktikweb.com/og-image.jpg" />
+    <meta
+      property="og:image:alt"
+      content="Galaktik Corp - Custom web development and software solutions"
+    />
 
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://galaktikwebsites.com/" />
-  <meta name="twitter:title" content="Galaktik - Desarrollo Web por Victor Alejandro Herra Solis" />
-  <meta name="twitter:description"
-    content="Agencia de desarrollo de software y web en Costa Rica, operando en Rusia y Reino Unido. CEO: Victor Alejandro Herra Solis." />
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Custom Web Development & Software Solutions | Galaktik Corp"
+    />
+    <meta
+      name="twitter:description"
+      content="We create websites, online stores, and custom software solutions for modern businesses."
+    />
+    <meta name="twitter:image" content="https://galaktikweb.com/og-image.jpg" />
+    <meta
+      name="twitter:image:alt"
+      content="Galaktik Corp - Custom web development and software solutions"
+    />
 
-  <!-- Google Fonts - Optimized -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"
-    media="print" onload="this.media='all'">
-  <noscript>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  </noscript>
+    <!-- Performance: Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+      media="print"
+      onload="this.media = 'all'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
 
-  <!-- Structured Data (Schema.org) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "ProfessionalService",
-    "name": "Galaktik Websites",
-    "alternateName": ["Galaktik", "GalaktikWeb", "GalaktikCR"],
-    "description": "Agencia de diseño y desarrollo web profesional con sede en Costa Rica y alcance global (Rusia, Reino Unido), fundada por Victor Alejandro Herra Solis.",
-    "url": "https://galaktikwebsites.com",
-    "logo": "https://galaktikwebsites.com/logo.png",
-    "image": "https://galaktikwebsites.com/logo.png",
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "Escazú",
-      "addressLocality": "Escazú",
-      "addressRegion": "San José",
-      "addressCountry": "CR"
-    },
-    "founder": {
-      "@type": "Person",
-      "name": "Victor Alejandro Herra Solis",
-      "jobTitle": "CEO",
-      "nationality": "Costa Rica",
-      "url": "https://galaktikwebsites.com",
-      "sameAs": [
-        "https://www.linkedin.com/in/alejandroherra/"
-      ]
-    },
-    "employee": {
-        "@type": "Person",
-        "name": "Victor Alejandro Herra Solis",
-        "jobTitle": "CEO y Fundador"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "9.748917",
-      "longitude": "-83.753428"
-    },
-    "areaServed": [
+    <!-- Structured Data -->
+    <script type="application/ld+json">
       {
-        "@type": "Country",
-        "name": "Costa Rica"
-      },
-      {
-        "@type": "Country",
-        "name": "Russia"
-      },
-      {
-        "@type": "Country",
-        "name": "United Kingdom"
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "Galaktik Corp",
+        "alternateName": ["Galaktik", "GalaktikWeb"],
+        "url": "https://galaktikweb.com/",
+        "logo": "https://galaktikweb.com/logo.png",
+        "image": "https://galaktikweb.com/og-image.jpg",
+        "description": "Custom web development, eCommerce, and software solutions for businesses.",
+        "priceRange": "\$300 - \$1000",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Escazú",
+          "addressRegion": "San José",
+          "addressCountry": "CR"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 9.748917,
+          "longitude": -83.753428
+        },
+        "areaServed": [
+          {
+            "@type": "Country",
+            "name": "Costa Rica"
+          },
+          {
+            "@type": "Country",
+            "name": "United Kingdom"
+          },
+          {
+            "@type": "Country",
+            "name": "Russia"
+          }
+        ],
+        "founder": {
+          "@type": "Person",
+          "name": "Victor Alejandro Herra Solis",
+          "jobTitle": "CEO & Founder",
+          "url": "https://galaktikweb.com/",
+          "sameAs": ["https://www.linkedin.com/in/alejandroherra/"]
+        },
+        "serviceType": [
+          "Web Development",
+          "Web Design",
+          "SEO",
+          "Custom Software Development",
+          "eCommerce Development"
+        ],
+        "knowsAbout": [
+          "Web Design",
+          "Web Development",
+          "React",
+          "Next.js",
+          "SEO",
+          "Custom Software Development",
+          "eCommerce"
+        ],
+        "offers": [
+          {
+            "@type": "Offer",
+            "name": "Corporate Website Plan",
+            "price": "300",
+            "priceCurrency": "USD",
+            "description": "Multi-page corporate website"
+          },
+          {
+            "@type": "Offer",
+            "name": "E-commerce Plan",
+            "price": "1000",
+            "priceCurrency": "USD",
+            "description": "Complete online store solution"
+          }
+        ],
+        "slogan": "Custom web development and software solutions for businesses"
       }
-    ],
-    "priceRange": "$149 - $1099",
-    "offers": [
-      {
-        "@type": "Offer",
-        "name": "Plan Landing",
-        "price": "149",
-        "priceCurrency": "USD",
-        "description": "Página web de alto impacto (Landing Page)"
-      },
-      {
-        "@type": "Offer",
-        "name": "Plan Corporativo",
-        "price": "299",
-        "priceCurrency": "USD",
-        "description": "Sitio web corporativo multi-página"
-      },
-      {
-        "@type": "Offer",
-        "name": "Plan E-commerce",
-        "price": "599",
-        "priceCurrency": "USD",
-        "description": "Tienda online completa"
-      }
-    ],
-    "serviceType": ["Diseño Web", "Desarrollo Web", "Páginas Web", "SEO", "Software a Medida"],
-    "knowsAbout": ["Diseño Web", "Desarrollo Web", "React", "Páginas Web Responsive", "SEO", "Next.js", "Victor Alejandro Herra Solis"],
-    "slogan": "Soluciones Web Escalables 2026"
-  }
-  </script>
-</head>
+    </script>
+  </head>
 
-<body>
-  <div id="root"></div>
-  <script type="module" src="/src/main.jsx"></script>
-</body>
-
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>

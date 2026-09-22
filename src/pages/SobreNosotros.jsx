@@ -96,13 +96,7 @@ export default function SobreNosotros() {
               </motion.p>
 
               <motion.div variants={fadeInUp} style={buttonGroup}>
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  style={primaryBtn}
-                >
-                  {t.software.snBtnProyectos}
-                </motion.button>
+
 
                 <motion.button
                   whileHover={{
